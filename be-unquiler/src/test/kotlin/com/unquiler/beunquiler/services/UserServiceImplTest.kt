@@ -26,36 +26,36 @@ class UserServiceImplTest {
 
     @Test
     fun `register should return a user when a valid user is provided`() {
-        `when`(userRepository.existsUserByUsername(testUser.getUsername()!!)).thenReturn(false)
+        `when`(userRepository.existsUserByEmail(testUser.getEmail()!!)).thenReturn(false)
         `when`(userRepository.save(testUser)).thenReturn(testUser)
 
         val result = userServiceImpl.register(testUser)
 
         assertEquals(testUser, result)
-        verify(userRepository, times(1)).existsUserByUsername(testUser.getUsername()!!)
+        verify(userRepository, times(1)).existsUserByEmail(testUser.getEmail()!!)
         verify(userRepository, times(1)).save(testUser)
     }
 
     @Test
     fun `register should throw an exception when a user with the same username already exists`() {
-        `when`(userRepository.existsUserByUsername(testUser.getUsername()!!)).thenReturn(true)
+        `when`(userRepository.existsUserByEmail(testUser.getEmail()!!)).thenReturn(true)
 
         assertThrows(Exception::class.java) {
             userServiceImpl.register(testUser)
         }
 
-        verify(userRepository, times(1)).existsUserByUsername(testUser.getUsername()!!)
+        verify(userRepository, times(1)).existsUserByEmail(testUser.getEmail()!!)
         verify(userRepository, never()).save(testUser)
     }
 
     @Test
     fun `register should save the user when the username is available`() {
-        `when`(userRepository.existsUserByUsername(testUser.getUsername()!!)).thenReturn(false)
+        `when`(userRepository.existsUserByEmail(testUser.getEmail()!!)).thenReturn(false)
         `when`(userRepository.save(testUser)).thenReturn(testUser)
 
         userServiceImpl.register(testUser)
 
-        verify(userRepository, times(1)).existsUserByUsername(testUser.getUsername()!!)
+        verify(userRepository, times(1)).existsUserByEmail(testUser.getEmail()!!)
         verify(userRepository, times(1)).save(testUser)
     }
 }

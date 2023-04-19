@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component
 @Component
 class ModelMapper {
     fun toEntity(userRequestDto: UserRequestDto): User {
-        return User(userRequestDto.getUsername(), userRequestDto.getPassword())
+        return User(userRequestDto.getEmail(), userRequestDto.getPassword())
     }
 
     companion object {

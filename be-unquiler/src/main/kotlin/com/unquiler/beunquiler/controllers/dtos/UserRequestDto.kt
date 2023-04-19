@@ -4,17 +4,17 @@ import jakarta.validation.constraints.NotNull
 
 class UserRequestDto {
     @NotNull
-    private var username: String
+    private var email: String
     @NotNull
     private var password: String
 
-    constructor(username: String, password: String) {
-        this.username = username
+    constructor(email: String, password: String) {
+        this.email = email
         this.password = password
     }
 
-    fun getUsername(): String {
-        return username
+    fun getEmail(): String {
+        return email
     }
 
     fun getPassword(): String {
