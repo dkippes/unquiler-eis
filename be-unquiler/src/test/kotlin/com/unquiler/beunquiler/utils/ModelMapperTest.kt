@@ -14,7 +14,7 @@ class ModelMapperTest {
     fun `toEntity should return a User with the correct username and password`() {
         val user = modelMapper.toEntity(testUserRequestDto)
         assertNotNull(user)
-        assertEquals(testUsername, user.getUsername())
+        assertEquals(testUsername, user.getEmail())
         assertEquals(testPassword, user.getPassword())
     }
 }

@@ -13,7 +13,7 @@ class UserServiceImpl : UserService {
     lateinit var userRepository: UserRepository
 
     override fun register(user: User): User {
-        val isUsernameTaken = userRepository.existsUserByUsername(user.getUsername()!!)
+        val isUsernameTaken = userRepository.existsUserByEmail(user.getEmail()!!)
         if (isUsernameTaken) {
             throw RuntimeException("El username ya existe")
         }

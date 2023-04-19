@@ -9,11 +9,11 @@ class User() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private var id: Long? = null
-    private var username: String? = null
+    private var email: String? = null
     private var password: String? = null
 
-    constructor(username: String, password: String) : this() {
-        this.username = username
+    constructor(email: String, password: String) : this() {
+        this.email = email
         this.password = password
     }
 
@@ -21,8 +21,8 @@ class User() {
         return id
     }
 
-    fun getUsername(): String? {
-        return username
+    fun getEmail(): String? {
+        return email
     }
 
     fun getPassword(): String? {

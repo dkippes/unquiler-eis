@@ -15,7 +15,7 @@ class UserTest {
 
     @Test
     fun `getUsername should return the correct username`() {
-        assertEquals(testUsername, testUser.getUsername())
+        assertEquals(testUsername, testUser.getEmail())
     }
 
     @Test
