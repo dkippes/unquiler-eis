@@ -62,6 +62,10 @@ function Register() {
         });
         const data = await response.json();
         console.log(data);
+
+        if (response.ok) {
+            window.location.href = "https://www.google.com";
+        }
     };
 
     return (
