@@ -14,7 +14,7 @@ import {
     ModalHeader,
     ModalBody,
     ModalFooter,
-    useDisclosure, Text, ButtonGroup,
+    useDisclosure, Text, ButtonGroup, FormHelperText,
 } from "@chakra-ui/react";
 import registerImage from "./register.png";
 
@@ -24,6 +24,7 @@ function Register() {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [isValidEmail, setIsValidEmail] = useState(false);
     const [isValidPassword, setIsValidPassword] = useState(false);
+    const [isValidConfirmPassword, setIsValidConfirmPassword] = useState(false);
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     const handleEmailChange = (event) => {
@@ -40,8 +41,17 @@ function Register() {
     };
 
     const handleConfirmPasswordChange = (event) => {
-        setConfirmPassword(event.target.value);
+        const confirmPwd = event.target.value;
+        setConfirmPassword(confirmPwd);
+
+        if (confirmPwd !== password) {
+            setIsValidConfirmPassword(false);
+        } else {
+            setIsValidConfirmPassword(true);
+        }
     };
+
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -63,9 +73,9 @@ function Register() {
         const data = await response.json();
         console.log(data);
 
-        if (response.ok) {
-            window.location.href = "https://www.google.com";
-        }
+        // if (response.ok) {
+        //     window.location.href = "https://www.google.com";
+        // }
     };
 
     return (
@@ -84,31 +94,35 @@ function Register() {
                         Registro
                     </Heading>
                     <form onSubmit={handleSubmit}>
-                        <FormControl>
+                        <FormControl isRequired>
                             <FormLabel htmlFor="email">Email:</FormLabel>
                             <Input
                                 type="email"
                                 id="email"
                                 value={email}
                                 onChange={handleEmailChange}
+                                width="100%"
                             />
                             {!isValidEmail && email.length > 0 && (
-                                <Text color="red">Ingresa un correo válido</Text>
+                                <FormHelperText color="red">Ingresa un correo válido</FormHelperText>
                             )}
                         </FormControl>
-                        <FormControl mt="4">
+                        <FormControl isRequired mt="4">
                             <FormLabel htmlFor="password">Contraseña:</FormLabel>
                             <Input
                                 type="password"
                                 id="password"
                                 value={password}
                                 onChange={handlePasswordChange}
+                                width="100%"
                             />
                             {!isValidPassword && password.length > 0 && (
-                                <Text color="red">La contraseña debe tener al menos 6 caracteres</Text>
+                                <FormHelperText color="red">
+                                    La contraseña debe tener al menos 6 caracteres
+                                </FormHelperText>
                             )}
                         </FormControl>
-                        <FormControl mt="4">
+                        <FormControl isRequired mt="4">
                             <FormLabel htmlFor="confirm-password">
                                 Confirmar contraseña:
                             </FormLabel>
@@ -117,25 +131,31 @@ function Register() {
                                 id="confirm-password"
                                 value={confirmPassword}
                                 onChange={handleConfirmPasswordChange}
+                                width="100%"
                             />
+                            {!isValidConfirmPassword && confirmPassword.length > 0 && (
+                                <FormHelperText color="red">
+                                    Las contraseñas no coinciden
+                                </FormHelperText>
+                            )}
                         </FormControl>
-                        <ButtonGroup>
-                            {isValidEmail && isValidPassword ? (
-                                <Button onClick={handleSubmit} style={{ margin: "10px" }}>Registrarse</Button>
+                        <ButtonGroup mt="4" width="100%">
+                            {isValidEmail && isValidPassword && isValidConfirmPassword ? (
+                                <Button onClick={handleSubmit} width="100%" backgroundColor="#E74646" _hover={{ background: "#FA9884" }}>
+                                    Registrarse
+                                </Button>
                             ) : (
-                                <Button isDisabled style={{ margin: "10px" }}>Complete los datos</Button>
+                                <Button isDisabled width="100%">
+                                    Complete los datos
+                                </Button>
                             )}
                         </ButtonGroup>
-                        {/*<Button mt="4" type="submit" disabled={!isValidEmail || !isValidPassword} style={{ cursor: 'default',  pointerEvents: "none" }}>*/}
-                        {/*    Registrarse*/}
-                        {/*</Button>*/}
                     </form>
-                    <Text mt="4" fontSize="sm">
+                    <Text mt="4" width="100%" textAlign="center">
                         ¿Ya tienes cuenta?{" "}
                         <a
                             href="/login"
                             style={{ textDecoration: "underline" }}
-                            color="blue.500"
                         >
                             Ingresa aquí
                         </a>
