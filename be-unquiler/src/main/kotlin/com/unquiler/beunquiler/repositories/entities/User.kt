@@ -9,7 +9,6 @@ class User() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private var id: Long? = null
-    @Column(unique = true)
     private var email: String? = null
     private var password: String? = null
 
