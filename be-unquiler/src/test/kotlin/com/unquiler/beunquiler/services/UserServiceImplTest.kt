@@ -2,12 +2,14 @@ package com.unquiler.beunquiler.services
 
 import com.unquiler.beunquiler.repositories.dao.UserRepository
 import com.unquiler.beunquiler.repositories.entities.User
+import jakarta.persistence.EntityNotFoundException
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations
+import java.util.*
 
 class UserServiceImplTest {
     private lateinit var userServiceImpl: UserServiceImpl
@@ -58,4 +60,23 @@ class UserServiceImplTest {
         verify(userRepository, times(1)).existsUserByEmail(testUser.getEmail()!!)
         verify(userRepository, times(1)).save(testUser)
     }
+
+    @Test
+    fun `login should return the user if the user exists`() {
+        `when`(userRepository.findByEmail(testUser.getEmail()!!)).thenReturn(Optional.of(testUser))
+
+        val result = userServiceImpl.login(testUser)
+
+        assertEquals(testUser, result)
+    }
+
+    @Test
+    fun `login should throw EntityNotFoundException if the user does not exist`() {
+        `when`(userRepository.findByEmail(testUser.getEmail()!!)).thenReturn(Optional.empty())
+
+        assertThrows(EntityNotFoundException::class.java) {
+            userServiceImpl.login(testUser)
+        }
+    }
+
 }
