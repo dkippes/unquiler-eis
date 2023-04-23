@@ -1,7 +1,16 @@
 import React from 'react';
-import { Box, Button, Flex, Heading, Text, VStack } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  Image,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import UnquilerLogo from '../../components/UnquilerLogo';
 
 const Home = () => {
   const { user, logout } = useAuth();
@@ -9,7 +18,10 @@ const Home = () => {
   return (
     <Box minHeight={'100vh'} bgColor="brand.500">
       <Flex bgColor="brand.200" justify="space-between" p="2" align="center">
-        <Heading color="brand.500">🏓 UNQuiler</Heading>
+        <Flex gap="3" align="center">
+          <UnquilerLogo />
+          <Heading color="brand.500">UNQuiler</Heading>
+        </Flex>
 
         {user ? (
           <Button colorScheme="brand" onClick={logout} variant="outline">

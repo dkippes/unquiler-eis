@@ -7,6 +7,7 @@ import { useAuth } from '../../context/AuthContext';
 import useForm from '../../hooks/useForm';
 import ClientSignInForm from '../components/ClientSignInForm';
 import { toast } from 'react-toastify';
+import UnquilerLogo from '../../components/UnquilerLogo';
 
 function Login() {
   const { errors, email, password, values, handleChange, reset } = useForm(
@@ -60,9 +61,12 @@ function Login() {
           minW={'sm'}
           w="full"
         >
-          <Heading as="h1" mb="4">
-            Bienvenido a UNQuiler 🏓
-          </Heading>
+          <Flex justify="space-between" align="center">
+            <Heading as="h1" mb="4">
+              Bienvenido a UNQuiler
+            </Heading>
+            <UnquilerLogo w="80px" h="80px" />
+          </Flex>
           <ClientSignInForm
             values={values}
             onSubmit={handleSubmit}
