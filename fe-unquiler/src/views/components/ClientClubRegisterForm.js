@@ -10,16 +10,18 @@ import React from 'react';
 import { validateEmail } from '../../utils';
 import PasswordInput from '../../components/PasswordInput';
 
-const ClientSignInForm = ({
+const ClientClubRegisterForm = ({
   values,
   errors,
   onChange,
   onSubmit,
   submitBtnText = 'Continuar',
 }) => {
-  const { email, password, confirmPassword } = values;
+  const { email, nombreClub, direccion, password, confirmPassword } = values;
   const disabledSubmitting =
     errors.email ||
+    errors.nombreClub ||
+    errors.direccion ||
     errors.password ||
     errors.confirmPassword ||
     !email.length ||
@@ -48,12 +50,26 @@ const ClientSignInForm = ({
             name="nombreClub"
             type="text"
             id="nombreClub"
-            value={email}
-            onChange={e => onChange(e, !validateEmail(e.target.value))}
+            value={nombreClub}
+            onChange={e => onChange(e, e.target.value.length < 2)}
             width="100%"
         />
-        {errors.email && email.length > 0 && (
-            <FormHelperText color="red">Ingresa un correo válido</FormHelperText>
+        {errors.nombreClub && nombreClub.length > 0 && (
+            <FormHelperText color="red">Ingresa un nombre valido</FormHelperText>
+        )}
+      </FormControl>
+      <FormControl isRequired>
+        <FormLabel htmlFor="direccion">Direccion:</FormLabel>
+        <Input
+            name="direccion"
+            type="text"
+            id="direccion"
+            value={direccion}
+            onChange={e => onChange(e, e.target.value.length < 2)}
+            width="100%"
+        />
+        {errors.direccion && direccion.length > 0 && (
+            <FormHelperText color="red">Ingresa una direccion valida</FormHelperText>
         )}
       </FormControl>
       <FormControl isRequired mt="4">
@@ -101,4 +117,4 @@ const ClientSignInForm = ({
   );
 };
 
-export default ClientSignInForm;
+export default ClientClubRegisterForm;

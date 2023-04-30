@@ -1,13 +1,13 @@
 import React from 'react';
-import { Box, Heading, Image, Flex, Link } from '@chakra-ui/react';
+import {Box, Flex, Heading, Image, Link} from '@chakra-ui/react';
 import registerImage from '../static/register.png';
-import { useNavigate } from 'react-router-dom';
-import { authService } from '../../api/AuthService';
-import { useAuth } from '../../context/AuthContext';
+import {useNavigate} from 'react-router-dom';
+import {authService} from '../../api/AuthService';
+import {useAuth} from '../../context/AuthContext';
 import useForm from '../../hooks/useForm';
-import ClientSignInForm from '../components/ClientSignInForm';
-import { toast } from 'react-toastify';
+import {toast} from 'react-toastify';
 import UnquilerLogo from '../../components/UnquilerLogo';
+import ClientClubRegisterForm from "../components/ClientClubRegisterForm";
 
 function Login() {
   const { errors, email, password, nombreClub, direccion, values, handleChange, reset } = useForm(
@@ -33,7 +33,7 @@ function Login() {
     event.preventDefault();
     if (!errors.confirmPassword && !errors.email && !errors.password) {
       authService
-        .clubRegister(email, password, nombreClub, direccion)
+        .clubRegister(email, nombreClub, direccion, password)
         .then(res => {
           login(res);
           toast('Club registrado con éxito', {
@@ -69,12 +69,12 @@ function Login() {
         >
           <Flex justify="space-between" align="center">
             <Heading as="h1" mb="4">
-              Crea tu cuenta
+              Registra tu Club
             </Heading>
 
             <UnquilerLogo w="80px" h="80px" />
           </Flex>
-          <ClientSignInForm
+          <ClientClubRegisterForm
             values={values}
             onSubmit={handleSubmit}
             onChange={handleChange}
