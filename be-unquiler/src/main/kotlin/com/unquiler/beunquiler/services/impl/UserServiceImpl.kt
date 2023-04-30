@@ -1,7 +1,8 @@
-package com.unquiler.beunquiler.services
+package com.unquiler.beunquiler.services.impl
 
 import com.unquiler.beunquiler.repositories.dao.UserRepository
 import com.unquiler.beunquiler.repositories.entities.User
+import com.unquiler.beunquiler.services.UserService
 import jakarta.persistence.EntityNotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service

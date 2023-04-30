@@ -1,38 +1,51 @@
 import React from 'react';
-import { Box, Heading, Image, Flex, Link } from '@chakra-ui/react';
+import { Box, Flex, Heading, Image, Link } from '@chakra-ui/react';
 import registerImage from '../static/register.png';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../../api/AuthService';
 import { useAuth } from '../../context/AuthContext';
 import useForm from '../../hooks/useForm';
-import ClientSignInForm from '../components/ClientSignInForm';
 import { toast } from 'react-toastify';
 import UnquilerLogo from '../../components/UnquilerLogo';
+import ClientClubRegisterForm from '../components/ClientClubRegisterForm';
 
 function Login() {
-  const { errors, email, password, loginAsClub, values, handleChange, reset } =
-    useForm(
-      {
-        email: '',
-        password: '',
-        loginAsClub: false,
-      },
-      {
-        email: false,
-        password: false,
-      }
-    );
+  const {
+    errors,
+    email,
+    password,
+    nombreClub,
+    direccion,
+    values,
+    handleChange,
+    reset,
+  } = useForm(
+    {
+      email: '',
+      nombreClub: '',
+      direccion: '',
+      password: '',
+      confirmPassword: '',
+    },
+    {
+      email: false,
+      nombreClub: false,
+      direccion: false,
+      password: false,
+      confirmPassword: false,
+    }
+  );
   const navigate = useNavigate();
   const { login } = useAuth();
 
   const handleSubmit = async event => {
     event.preventDefault();
-    if (!errors.email && !errors.password) {
+    if (!errors.confirmPassword && !errors.email && !errors.password) {
       authService
-        .login(email, password, loginAsClub)
+        .clubRegister(email, nombreClub, direccion, password)
         .then(res => {
           login(res);
-          toast('Usuario ingresado con éxito', {
+          toast('Club registrado con éxito', {
             type: 'success',
           });
           navigate('/');
@@ -40,7 +53,7 @@ function Login() {
         .catch(err => {
           const errorText =
             err.response.status === 404
-              ? 'Email o contraseña no existentes'
+              ? 'Ya existe club con ese mail registrado'
               : 'Ha ocurrido un error, por favor intente nuevamente más tarde';
           toast(errorText, {
             type: 'error',
@@ -65,8 +78,9 @@ function Login() {
         >
           <Flex justify="space-between" align="center">
             <Heading as="h1" mb="4">
-              Bienvenido a UNQuiler
+              Registra tu Club
             </Heading>
+
             <UnquilerLogo
               onClick={() => navigate('/')}
               cursor="pointer"
@@ -74,37 +88,27 @@ function Login() {
               h="80px"
             />
           </Flex>
-          <ClientSignInForm
+          <ClientClubRegisterForm
             values={values}
             onSubmit={handleSubmit}
             onChange={handleChange}
             errors={errors}
-            submitBtnText="Ingresar"
+            submitBtnText="Registrarse"
           />
           <Link
-            onClick={() => navigate('/user/register')}
+            onClick={() => navigate('/login')}
             width="100%"
             textAlign="center"
             color="blue.600"
             my="3"
             display="block"
           >
-            ¿No tienes cuenta? Registrate aqui!
-          </Link>
-          <Link
-            onClick={() => navigate('/club/register')}
-            width="100%"
-            textAlign="center"
-            color="blue.600"
-            my="3"
-            display="block"
-          >
-            ¿Tu club no esta registrado? Registralo aqui!
+            ¿Ya tienes cuenta? Ingresa aquí
           </Link>
         </Box>
         <Image
           src={registerImage}
-          alt="Imagen de login"
+          alt="Imagen de registro"
           objectFit="cover"
           flex={[0, 1]}
           flexShrink={[1, 0]}
