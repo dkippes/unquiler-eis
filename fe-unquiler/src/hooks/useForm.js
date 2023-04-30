@@ -5,8 +5,13 @@ const useForm = (initialValues, initialErrors) => {
   const [errors, setErrors] = useState(initialErrors);
 
   const handleChange = (e, hasError) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
-    setErrors({ ...errors, [e.target.name]: hasError });
+    setValues({
+      ...values,
+      [e.target.name]:
+        e.target.type === 'checkbox' ? e.target.checked : e.target.value,
+    });
+    hasError !== undefined &&
+      setErrors({ ...errors, [e.target.name]: hasError });
   };
 
   const reset = () => {
