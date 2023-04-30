@@ -19,7 +19,7 @@ const Home = () => {
     <Box minHeight={'100vh'} bgColor="brand.500">
       <Flex bgColor="brand.200" justify="space-between" p="2" align="center">
         <Flex gap="3" align="center">
-          <UnquilerLogo />
+          <UnquilerLogo onClick={() => navigate('/')} cursor="pointer" />
           <Heading color="brand.500">UNQuiler</Heading>
         </Flex>
 
@@ -36,10 +36,16 @@ const Home = () => {
             >
               Ingresar
             </Button>
-            <Button colorScheme="brand" onClick={() => navigate('/user/register')}>
+            <Button
+              colorScheme="brand"
+              onClick={() => navigate('/user/register')}
+            >
               Registrar Cliente
             </Button>
-            <Button colorScheme="brand" onClick={() => navigate('/club/register')}>
+            <Button
+              colorScheme="brand"
+              onClick={() => navigate('/club/register')}
+            >
               Registrar Club
             </Button>
           </Flex>
