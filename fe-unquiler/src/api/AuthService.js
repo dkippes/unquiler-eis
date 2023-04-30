@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const authService = {
   register: async (email, password) => {
-    const response = await axios.post('http://localhost:8080/register', {
+    const response = await axios.post('http://localhost:8080/user/register', {
       email,
       password,
     });

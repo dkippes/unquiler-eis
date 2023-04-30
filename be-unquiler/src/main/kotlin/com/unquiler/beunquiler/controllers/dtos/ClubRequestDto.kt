@@ -30,4 +30,8 @@ class ClubRequestDto {
     fun getPassword(): String {
         return password
     }
+
+    fun getDireccion(): String {
+        return direccion
+    }
 }
