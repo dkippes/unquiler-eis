@@ -1,5 +1,6 @@
 package com.unquiler.beunquiler.utils
 
+import com.unquiler.beunquiler.controllers.dtos.ClubLoginRequestDto
 import com.unquiler.beunquiler.controllers.dtos.ClubRequestDto
 import com.unquiler.beunquiler.controllers.dtos.UserRequestDto
 import com.unquiler.beunquiler.repositories.entities.Club
