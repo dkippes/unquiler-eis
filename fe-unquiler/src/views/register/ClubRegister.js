@@ -1,23 +1,27 @@
 import React from 'react';
-import { Box, Heading, Image, Flex, Link } from '@chakra-ui/react';
+import {Box, Flex, Heading, Image, Link} from '@chakra-ui/react';
 import registerImage from '../static/register.png';
-import { useNavigate } from 'react-router-dom';
-import { authService } from '../../api/AuthService';
-import { useAuth } from '../../context/AuthContext';
+import {useNavigate} from 'react-router-dom';
+import {authService} from '../../api/AuthService';
+import {useAuth} from '../../context/AuthContext';
 import useForm from '../../hooks/useForm';
-import ClientSignInForm from '../components/ClientSignInForm';
-import { toast } from 'react-toastify';
+import {toast} from 'react-toastify';
 import UnquilerLogo from '../../components/UnquilerLogo';
+import ClientClubRegisterForm from "../components/ClientClubRegisterForm";
 
 function Login() {
-  const { errors, email, password, values, handleChange, reset } = useForm(
+  const { errors, email, password, nombreClub, direccion, values, handleChange, reset } = useForm(
     {
       email: '',
+      nombreClub: '',
+      direccion: '',
       password: '',
       confirmPassword: '',
     },
     {
       email: false,
+      nombreClub: false,
+      direccion: false,
       password: false,
       confirmPassword: false,
     }
@@ -29,10 +33,10 @@ function Login() {
     event.preventDefault();
     if (!errors.confirmPassword && !errors.email && !errors.password) {
       authService
-        .register(email, password)
+        .clubRegister(email, nombreClub, direccion, password)
         .then(res => {
           login(res);
-          toast('Usuario registrado con éxito', {
+          toast('Club registrado con éxito', {
             type: 'success',
           });
           navigate('/');
@@ -40,7 +44,7 @@ function Login() {
         .catch(err => {
           const errorText =
             err.response.status === 404
-              ? 'Ya existe usuario con ese mail registrado'
+              ? 'Ya existe club con ese mail registrado'
               : 'Ha ocurrido un error, por favor intente nuevamente más tarde';
           toast(errorText, {
             type: 'error',
@@ -65,12 +69,12 @@ function Login() {
         >
           <Flex justify="space-between" align="center">
             <Heading as="h1" mb="4">
-              Crea tu cuenta
+              Registra tu Club
             </Heading>
 
             <UnquilerLogo w="80px" h="80px" />
           </Flex>
-          <ClientSignInForm
+          <ClientClubRegisterForm
             values={values}
             onSubmit={handleSubmit}
             onChange={handleChange}
