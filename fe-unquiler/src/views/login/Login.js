@@ -14,6 +14,7 @@ function Login() {
     {
       email: '',
       password: '',
+      loginAsClub: false,
     },
     {
       email: false,
