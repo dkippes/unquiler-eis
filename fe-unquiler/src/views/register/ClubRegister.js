@@ -10,14 +10,18 @@ import { toast } from 'react-toastify';
 import UnquilerLogo from '../../components/UnquilerLogo';
 
 function Login() {
-  const { errors, email, password, values, handleChange, reset } = useForm(
+  const { errors, email, password, nombreClub, direccion, values, handleChange, reset } = useForm(
     {
       email: '',
+      nombreClub: '',
+      direccion: '',
       password: '',
       confirmPassword: '',
     },
     {
       email: false,
+      nombreClub: false,
+      direccion: false,
       password: false,
       confirmPassword: false,
     }
@@ -29,10 +33,10 @@ function Login() {
     event.preventDefault();
     if (!errors.confirmPassword && !errors.email && !errors.password) {
       authService
-        .register(email, password)
+        .clubRegister(email, password, nombreClub, direccion)
         .then(res => {
           login(res);
-          toast('Usuario registrado con éxito', {
+          toast('Club registrado con éxito', {
             type: 'success',
           });
           navigate('/');
@@ -40,7 +44,7 @@ function Login() {
         .catch(err => {
           const errorText =
             err.response.status === 404
-              ? 'Ya existe usuario con ese mail registrado'
+              ? 'Ya existe club con ese mail registrado'
               : 'Ha ocurrido un error, por favor intente nuevamente más tarde';
           toast(errorText, {
             type: 'error',

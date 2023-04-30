@@ -14,10 +14,12 @@ function Login() {
     {
       email: '',
       password: '',
+      confirmPassword: '',
     },
     {
       email: false,
       password: false,
+      confirmPassword: false,
     }
   );
   const navigate = useNavigate();
@@ -25,12 +27,12 @@ function Login() {
 
   const handleSubmit = async event => {
     event.preventDefault();
-    if (!errors.email && !errors.password) {
+    if (!errors.confirmPassword && !errors.email && !errors.password) {
       authService
-        .login(email, password)
+        .userRegister(email, password)
         .then(res => {
           login(res);
-          toast('Usuario ingresado con éxito', {
+          toast('Usuario registrado con éxito', {
             type: 'success',
           });
           navigate('/');
@@ -38,7 +40,7 @@ function Login() {
         .catch(err => {
           const errorText =
             err.response.status === 404
-              ? 'Email o contraseña no existentes'
+              ? 'Ya existe usuario con ese mail registrado'
               : 'Ha ocurrido un error, por favor intente nuevamente más tarde';
           toast(errorText, {
             type: 'error',
@@ -63,8 +65,9 @@ function Login() {
         >
           <Flex justify="space-between" align="center">
             <Heading as="h1" mb="4">
-              Bienvenido a UNQuiler
+              Crea tu cuenta
             </Heading>
+
             <UnquilerLogo w="80px" h="80px" />
           </Flex>
           <ClientSignInForm
@@ -72,22 +75,22 @@ function Login() {
             onSubmit={handleSubmit}
             onChange={handleChange}
             errors={errors}
-            submitBtnText="Ingresar"
+            submitBtnText="Registrarse"
           />
           <Link
-            onClick={() => navigate('/user/register')}
+            onClick={() => navigate('/login')}
             width="100%"
             textAlign="center"
             color="blue.600"
             my="3"
             display="block"
           >
-            ¿No tienes cuenta? Registrate aqui!
+            ¿Ya tienes cuenta? Ingresa aquí
           </Link>
         </Box>
         <Image
           src={registerImage}
-          alt="Imagen de login"
+          alt="Imagen de registro"
           objectFit="cover"
           flex={[0, 1]}
           flexShrink={[1, 0]}

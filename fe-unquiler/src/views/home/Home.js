@@ -36,8 +36,11 @@ const Home = () => {
             >
               Ingresar
             </Button>
-            <Button colorScheme="brand" onClick={() => navigate('/register')}>
-              Registrarse
+            <Button colorScheme="brand" onClick={() => navigate('/user/register')}>
+              Registrar Cliente
+            </Button>
+            <Button colorScheme="brand" onClick={() => navigate('/club/register')}>
+              Registrar Club
             </Button>
           </Flex>
         )}
