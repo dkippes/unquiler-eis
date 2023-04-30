@@ -68,7 +68,12 @@ function Login() {
               Crea tu cuenta
             </Heading>
 
-            <UnquilerLogo w="80px" h="80px" />
+            <UnquilerLogo
+              onClick={() => navigate('/')}
+              cursor="pointer"
+              w="80px"
+              h="80px"
+            />
           </Flex>
           <ClientSignInForm
             values={values}

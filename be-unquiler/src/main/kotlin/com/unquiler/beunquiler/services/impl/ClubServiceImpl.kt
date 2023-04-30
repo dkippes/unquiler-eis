@@ -21,4 +21,12 @@ class ClubServiceImpl : ClubService {
         }
         return clubRepository.save(club)
     }
+
+    override fun login(email: String, password: String): Club {
+        val club = clubRepository.findByEmailAndPassword(email, password)
+
+        if(club.isEmpty) throw EntityNotFoundException()
+
+        return club.get()
+    }
 }

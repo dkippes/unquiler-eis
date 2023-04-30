@@ -1,6 +1,7 @@
 import {
   Button,
   ButtonGroup,
+  Checkbox,
   FormControl,
   FormHelperText,
   FormLabel,
@@ -17,7 +18,7 @@ const ClientSignInForm = ({
   onSubmit,
   submitBtnText = 'Continuar',
 }) => {
-  const { email, password, confirmPassword } = values;
+  const { email, password, confirmPassword, loginAsClub } = values;
   const disabledSubmitting =
     errors.email ||
     errors.password ||
@@ -71,6 +72,17 @@ const ClientSignInForm = ({
             </FormHelperText>
           )}
         </FormControl>
+      )}
+      {loginAsClub !== undefined && (
+        <Checkbox
+          checked={loginAsClub}
+          name="loginAsClub"
+          my={2}
+          onChange={onChange}
+        >
+          {' '}
+          Ingresa como club?
+        </Checkbox>
       )}
       <ButtonGroup mt="4" width="100%">
         <Button

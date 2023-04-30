@@ -1,8 +1,10 @@
 import axios from 'axios';
 
+const BASE_URL = 'http://localhost:8080/';
+
 export const authService = {
   userRegister: async (email, password) => {
-    const response = await axios.post('http://localhost:8080/user/register', {
+    const response = await axios.post(BASE_URL + 'user/register', {
       email,
       password,
     });
@@ -10,7 +12,7 @@ export const authService = {
     return response.data;
   },
   clubRegister: async (email, nombreClub, direccion, password) => {
-    const response = await axios.post('http://localhost:8080/club/register', {
+    const response = await axios.post(BASE_URL + 'club/register', {
       email,
       nombreClub,
       direccion,
@@ -19,8 +21,9 @@ export const authService = {
 
     return response.data;
   },
-  login: async (email, password) => {
-    const response = await axios.post('http://localhost:8080/login', {
+  login: async (email, password, isClub = false) => {
+    const endpoint = isClub ? 'club/login' : 'login';
+    const response = await axios.post(BASE_URL + endpoint, {
       email,
       password,
     });

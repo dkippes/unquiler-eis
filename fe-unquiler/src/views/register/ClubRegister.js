@@ -1,16 +1,25 @@
 import React from 'react';
-import {Box, Flex, Heading, Image, Link} from '@chakra-ui/react';
+import { Box, Flex, Heading, Image, Link } from '@chakra-ui/react';
 import registerImage from '../static/register.png';
-import {useNavigate} from 'react-router-dom';
-import {authService} from '../../api/AuthService';
-import {useAuth} from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { authService } from '../../api/AuthService';
+import { useAuth } from '../../context/AuthContext';
 import useForm from '../../hooks/useForm';
-import {toast} from 'react-toastify';
+import { toast } from 'react-toastify';
 import UnquilerLogo from '../../components/UnquilerLogo';
-import ClientClubRegisterForm from "../components/ClientClubRegisterForm";
+import ClientClubRegisterForm from '../components/ClientClubRegisterForm';
 
-function Login() {
-  const { errors, email, password, nombreClub, direccion, values, handleChange, reset } = useForm(
+function Register() {
+  const {
+    errors,
+    email,
+    password,
+    nombreClub,
+    direccion,
+    values,
+    handleChange,
+    reset,
+  } = useForm(
     {
       email: '',
       nombreClub: '',
@@ -72,7 +81,12 @@ function Login() {
               Registra tu Club
             </Heading>
 
-            <UnquilerLogo w="80px" h="80px" />
+            <UnquilerLogo
+              onClick={() => navigate('/')}
+              cursor="pointer"
+              w="80px"
+              h="80px"
+            />
           </Flex>
           <ClientClubRegisterForm
             values={values}
@@ -104,4 +118,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;

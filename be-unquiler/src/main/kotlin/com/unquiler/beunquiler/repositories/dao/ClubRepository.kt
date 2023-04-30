@@ -8,4 +8,5 @@ import java.util.*
 @Repository
 interface ClubRepository : JpaRepository<Club, Long> {
     fun existsClubByEmail(email: String): Boolean
+    fun findByEmailAndPassword(email: String, password: String): Optional<Club>
 }

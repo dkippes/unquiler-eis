@@ -10,16 +10,18 @@ import { toast } from 'react-toastify';
 import UnquilerLogo from '../../components/UnquilerLogo';
 
 function Login() {
-  const { errors, email, password, values, handleChange, reset } = useForm(
-    {
-      email: '',
-      password: '',
-    },
-    {
-      email: false,
-      password: false,
-    }
-  );
+  const { errors, email, password, loginAsClub, values, handleChange, reset } =
+    useForm(
+      {
+        email: '',
+        password: '',
+        loginAsClub: false,
+      },
+      {
+        email: false,
+        password: false,
+      }
+    );
   const navigate = useNavigate();
   const { login } = useAuth();
 
@@ -27,7 +29,7 @@ function Login() {
     event.preventDefault();
     if (!errors.email && !errors.password) {
       authService
-        .login(email, password)
+        .login(email, password, loginAsClub)
         .then(res => {
           login(res);
           toast('Usuario ingresado con éxito', {
@@ -65,7 +67,12 @@ function Login() {
             <Heading as="h1" mb="4">
               Bienvenido a UNQuiler
             </Heading>
-            <UnquilerLogo w="80px" h="80px" />
+            <UnquilerLogo
+              onClick={() => navigate('/')}
+              cursor="pointer"
+              w="80px"
+              h="80px"
+            />
           </Flex>
           <ClientSignInForm
             values={values}
@@ -83,6 +90,16 @@ function Login() {
             display="block"
           >
             ¿No tienes cuenta? Registrate aqui!
+          </Link>
+          <Link
+            onClick={() => navigate('/club/register')}
+            width="100%"
+            textAlign="center"
+            color="blue.600"
+            my="3"
+            display="block"
+          >
+            ¿Tu club no esta registrado? Registralo aqui!
           </Link>
         </Box>
         <Image
