@@ -1,8 +1,8 @@
 package com.unquiler.beunquiler.services.impl
 
-import com.unquiler.beunquiler.repositories.dao.UserRepository
-import com.unquiler.beunquiler.repositories.entities.User
-import com.unquiler.beunquiler.services.UserService
+import com.unquiler.beunquiler.repositories.dao.ClubRepository
+import com.unquiler.beunquiler.repositories.entities.Club
+import com.unquiler.beunquiler.services.ClubService
 import jakarta.persistence.EntityNotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -10,23 +10,15 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 @Transactional
-class UserServiceImpl : UserService {
+class ClubServiceImpl : ClubService {
     @Autowired
-    lateinit var userRepository: UserRepository
+    lateinit var clubRepository: ClubRepository
 
-    override fun register(user: User): User {
-        val isUsernameTaken = userRepository.existsUserByEmail(user.getEmail()!!)
-        if (isUsernameTaken) {
-            throw RuntimeException("El username ya existe")
+    override fun register(club: Club): Club {
+        val isClubTaken = clubRepository.existsClubByEmail(club.getEmail()!!)
+        if (isClubTaken) {
+            throw RuntimeException("El club ya existe")
         }
-        return userRepository.save(user)
-    }
-
-    override fun login(user: User): User {
-        val loggedUser = userRepository.findByEmailAndPassword(user.getEmail()!!, user.getPassword()!!)
-
-        if(loggedUser.isEmpty) throw EntityNotFoundException()
-
-        return loggedUser.get()
+        return clubRepository.save(club)
     }
 }

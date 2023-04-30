@@ -12,10 +12,10 @@ import java.lang.RuntimeException
 
 @RestController
 @CrossOrigin(origins = ["http://localhost:8080/", "http://127.0.0.1:5173/%22)"])
-@RequestMapping("/register")
-class RegisterController(var userService: UserService, var modelMapper: ModelMapper) {
+@RequestMapping("/user")
+class RegisterUserController(var userService: UserService, var modelMapper: ModelMapper) {
 
-    @PostMapping
+    @PostMapping("/register")
     @Throws(Exception::class)
     fun register(@Valid @RequestBody userRequest: UserRequestDto): ResponseEntity<Any> {
         val userToEntity: User = modelMapper.toEntity(userRequest)

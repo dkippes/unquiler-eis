@@ -1,9 +1,7 @@
 package com.unquiler.beunquiler.services
 
-import com.unquiler.beunquiler.repositories.entities.User
+import com.unquiler.beunquiler.repositories.entities.Club
 
-interface UserService {
-    fun register(user: User): User
-
-    fun login(user: User): User
+interface ClubService {
+    fun register(club: Club): Club
 }

@@ -2,6 +2,7 @@ package com.unquiler.beunquiler.services
 
 import com.unquiler.beunquiler.repositories.dao.UserRepository
 import com.unquiler.beunquiler.repositories.entities.User
+import com.unquiler.beunquiler.services.impl.UserServiceImpl
 import jakarta.persistence.EntityNotFoundException
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
