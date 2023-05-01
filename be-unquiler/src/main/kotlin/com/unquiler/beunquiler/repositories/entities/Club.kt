@@ -56,6 +56,6 @@ class Club() {
 
     fun registrarCancha(cancha: Cancha) {
         cancha.club = this
-        canchas!!.add(cancha)
+        canchas?.add(cancha)
     }
 }

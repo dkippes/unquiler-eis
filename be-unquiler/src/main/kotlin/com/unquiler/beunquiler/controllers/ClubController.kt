@@ -33,7 +33,9 @@ class ClubController(var clubService: ClubService, var modelMapper: ModelMapper)
     @Throws(Exception::class)
     fun publicarCancha(@Valid @RequestBody canchaDto: CanchaDTO, @Valid @PathVariable id: Long): ResponseEntity<Any> {
         return try {
-           ResponseEntity<Any>(clubService.publicarCancha(id, modelMapper.toEntity(canchaDto)), HttpStatus.OK)
+            // TODO: Hay que devolver un DTO
+            clubService.publicarCancha(id, modelMapper.toEntity(canchaDto))
+            ResponseEntity<Any>("OK", HttpStatus.OK)
         } catch (e: EntityNotFoundException) {
             return ResponseEntity<Any>(e.message, HttpStatus.NOT_FOUND)
         }
@@ -48,7 +50,7 @@ class ClubController(var clubService: ClubService, var modelMapper: ModelMapper)
     fun informacionDeClub(@Valid @PathVariable id: Long): ResponseEntity<Any> {
         return try {
             ResponseEntity<Any>(modelMapper.toDto(clubService.getClubInformation(id)), HttpStatus.OK)
-        } catch(err: EntityNotFoundException){
+        } catch (err: EntityNotFoundException) {
             ResponseEntity<Any>(err.message, HttpStatus.NOT_FOUND)
         }
     }

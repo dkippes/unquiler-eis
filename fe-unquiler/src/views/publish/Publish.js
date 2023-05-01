@@ -85,7 +85,7 @@ const Publish = () => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    if (horariosEntries.length < 1)
+    if (horariosEntries.length < 1 || !horariosEntries.every( ([f, hs ]) => hs.length >= 1))
       return toast('Debes agregar al menos un horario', { type: 'error' });
 
     ClubService.publish(user.id, {

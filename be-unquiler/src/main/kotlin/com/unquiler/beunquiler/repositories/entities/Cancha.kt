@@ -1,11 +1,9 @@
 package com.unquiler.beunquiler.repositories.entities
 
-import com.fasterxml.jackson.annotation.JsonSubTypes.Type
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.unquiler.beunquiler.repositories.enums.Deportes
 import jakarta.persistence.*
-import java.time.LocalDate
 
 @Converter
 class HorariosDisponiblesConverter : AttributeConverter<Map<String, MutableSet<Horario>>, String> {

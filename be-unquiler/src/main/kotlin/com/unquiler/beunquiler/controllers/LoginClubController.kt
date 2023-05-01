@@ -20,7 +20,8 @@ class LoginClubController(@Autowired var clubService: ClubService, @Autowired va
     fun login(@Valid @RequestBody clubRequestDto: ClubLoginRequestDto): ResponseEntity<Any> {
         val (email, password) = clubRequestDto
         return try {
-            ResponseEntity<Any>(clubService.login(email, password), HttpStatus.OK)
+            var toDto = modelMapper.toDtoSinCanchas(clubService.login(email, password))
+            ResponseEntity<Any>(toDto, HttpStatus.OK)
         } catch (e: RuntimeException) {
             ResponseEntity<Any>(e.message, HttpStatus.NOT_FOUND)
         }

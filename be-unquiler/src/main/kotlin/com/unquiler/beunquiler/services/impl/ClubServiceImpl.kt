@@ -42,7 +42,6 @@ class ClubServiceImpl : ClubService {
 
         club.get().registrarCancha(cancha)
 
-        canchaRepository.save(cancha)
         clubRepository.save(club.get())
         return cancha
     }
