@@ -15,12 +15,15 @@ class Club() {
     private var nombreClub: String? = null
     private var direccion: String? = null
     private var password: String? = null
+    @OneToMany(cascade = [CascadeType.ALL], mappedBy = "club")
+    private var canchas: MutableSet<Cancha>? = null
 
     constructor(email: String, nombreClub: String, direccion: String, password: String) : this() {
         this.email = email
         this.nombreClub = nombreClub
         this.direccion = direccion
         this.password = password
+        this.canchas = mutableSetOf()
     }
 
     fun getId(): Long? {
@@ -45,5 +48,14 @@ class Club() {
 
     fun setPassword(password: String) {
         this.password = password
+    }
+
+    fun getCanchas(): MutableSet<Cancha>? {
+        return this.canchas
+    }
+
+    fun registrarCancha(cancha: Cancha) {
+        cancha.club = this
+        canchas!!.add(cancha)
     }
 }

@@ -44,7 +44,7 @@ function Register() {
       authService
         .clubRegister(email, nombreClub, direccion, password)
         .then(res => {
-          login(res);
+          login({ ...res, isClub: true });
           toast('Club registrado con éxito', {
             type: 'success',
           });

@@ -31,7 +31,7 @@ function Login() {
       authService
         .login(email, password, loginAsClub)
         .then(res => {
-          login(res);
+          login({ ...res, isClub: loginAsClub || undefined });
           toast('Usuario ingresado con éxito', {
             type: 'success',
           });

@@ -14,12 +14,27 @@ const useForm = (initialValues, initialErrors) => {
       setErrors({ ...errors, [e.target.name]: hasError });
   };
 
+  const handleChangeInCustomInput = (name, value, hasError) => {
+    setValues({
+      ...values,
+      [name]: value,
+    });
+    hasError !== undefined && setErrors({ ...errors, [name]: hasError });
+  };
+
   const reset = () => {
     setValues(initialValues);
     setErrors(initialErrors);
   };
 
-  return { ...values, values, reset, handleChange, errors };
+  return {
+    ...values,
+    values,
+    reset,
+    handleChangeInCustomInput,
+    handleChange,
+    errors,
+  };
 };
 
 export default useForm;
