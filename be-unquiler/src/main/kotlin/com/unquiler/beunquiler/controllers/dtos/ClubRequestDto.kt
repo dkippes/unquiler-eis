@@ -12,7 +12,7 @@ class ClubRequestDto {
     @NotNull
     private var password: String
 
-    constructor(email: String, nombreClub: String, direccion: String, password: String) {
+    constructor(email: String, nombreClub: String, direccion: String, password: String){
         this.email = email
         this.nombreClub = nombreClub
         this.direccion = direccion
