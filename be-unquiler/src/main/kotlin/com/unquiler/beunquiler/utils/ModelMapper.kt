@@ -3,10 +3,10 @@ package com.unquiler.beunquiler.utils
 import com.unquiler.beunquiler.controllers.dtos.*
 import com.unquiler.beunquiler.repositories.entities.Cancha
 import com.unquiler.beunquiler.repositories.entities.Club
+import com.unquiler.beunquiler.repositories.entities.Horario
 import com.unquiler.beunquiler.repositories.entities.User
 import com.unquiler.beunquiler.repositories.enums.Deportes
 import org.springframework.stereotype.Component
-import java.util.stream.Collectors.toList
 
 @Component
 class ModelMapper {
@@ -38,6 +38,18 @@ class ModelMapper {
     fun toDtoSinCanchas(club: Club): ClubDTOSinCanchas {
         return ClubDTOSinCanchas(club.getId()!!,club.getEmail()!!, club.getNombreClub()!!,club.getDireccion()!!)
     }
+
+    fun toDtoSinHorarios(cancha: Cancha): CanchaDTOSinHorarios {
+        return CanchaDTOSinHorarios(
+            id = cancha.id,
+            nombre = cancha.nombre!!,
+            capacidad = cancha.capacidad,
+            deporte = cancha.deporte?.value!!,
+            precio = cancha.precio
+        )
+    }
+
+
     companion object {
         private var instance: ModelMapper? = null
         fun getInstance(): ModelMapper {

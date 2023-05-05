@@ -1,6 +1,6 @@
 package com.unquiler.beunquiler.services.impl
 
-import com.unquiler.beunquiler.controllers.dtos.CanchaDTO
+import com.unquiler.beunquiler.controllers.dtos.CanchaDTOSinHorarios
 import com.unquiler.beunquiler.repositories.dao.CanchaRepository
 import com.unquiler.beunquiler.repositories.dao.ClubRepository
 import com.unquiler.beunquiler.repositories.entities.Cancha
