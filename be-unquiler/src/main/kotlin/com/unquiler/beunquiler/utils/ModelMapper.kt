@@ -3,7 +3,6 @@ package com.unquiler.beunquiler.utils
 import com.unquiler.beunquiler.controllers.dtos.*
 import com.unquiler.beunquiler.repositories.entities.Cancha
 import com.unquiler.beunquiler.repositories.entities.Club
-import com.unquiler.beunquiler.repositories.entities.Horario
 import com.unquiler.beunquiler.repositories.entities.User
 import com.unquiler.beunquiler.repositories.enums.Deportes
 import org.springframework.stereotype.Component
@@ -39,13 +38,14 @@ class ModelMapper {
         return ClubDTOSinCanchas(club.getId()!!,club.getEmail()!!, club.getNombreClub()!!,club.getDireccion()!!)
     }
 
-    fun toDtoSinHorarios(cancha: Cancha): CanchaDTOSinHorarios {
+    fun toDtoSinHorarios(cancha: Cancha, club_id: Long?): CanchaDTOSinHorarios {
         return CanchaDTOSinHorarios(
             id = cancha.id,
             nombre = cancha.nombre!!,
             capacidad = cancha.capacidad,
             deporte = cancha.deporte?.value!!,
-            precio = cancha.precio
+            precio = cancha.precio,
+            club_id = club_id
         )
     }
 

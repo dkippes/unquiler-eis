@@ -15,7 +15,7 @@ class CanchaController(private val canchaService: CanchaService, private val mod
     fun getByClubName(@PathVariable text: String): ResponseEntity<Any> {
         return try {
             val canchas = canchaService.getByClubName(text)
-            val canchasDto = canchas.map { modelMapper.toDtoSinHorarios(it) }
+            val canchasDto = canchas.map { modelMapper.toDtoSinHorarios(it, it.club!!.getId()) }
             ResponseEntity<Any>(canchasDto, HttpStatus.OK)
         } catch (err: Exception) {
             ResponseEntity<Any>(err.message, HttpStatus.INTERNAL_SERVER_ERROR)

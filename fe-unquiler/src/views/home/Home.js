@@ -40,8 +40,7 @@ const Home = () => {
 
     const handleImageClick= (cancha) =>{
         console.log(cancha)
-        //TODO: GET THE CLUB_ID of the cancha
-        //navigate(cancha.club_id +'/' + cancha.id + '/ver-detalle' );
+        navigate(cancha.club_id +'/' + cancha.id + '/ver-detalle' );
     }
 
 
