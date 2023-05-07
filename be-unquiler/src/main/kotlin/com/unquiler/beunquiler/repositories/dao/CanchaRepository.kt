@@ -14,4 +14,10 @@ interface CanchaRepository : JpaRepository<Cancha, Long> {
         nativeQuery = true)
     fun findByClubName(clubName: String): Array<Cancha>
 
+    @Query(
+        value = "SELECT *  FROM canchas " +
+                " order by id DESC LIMIT 0, ?1 ",
+        nativeQuery = true)
+    fun getLastCanchas(qty: Long): Array<Cancha>
+
 }

@@ -16,4 +16,8 @@ class CanchaServiceImpl: CanchaService {
         return canchaRepository.findByClubName(clubName)
     }
 
+    override fun getLastCanchas(qty: Int): Array<Cancha> {
+        return canchaRepository.getLastCanchas(qty.toLong())
+    }
+
 }
