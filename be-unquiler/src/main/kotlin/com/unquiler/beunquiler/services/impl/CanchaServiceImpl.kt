@@ -6,6 +6,8 @@ import com.unquiler.beunquiler.services.CanchaService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.util.*
+
 @Service
 @Transactional
 class CanchaServiceImpl: CanchaService {
@@ -14,6 +16,10 @@ class CanchaServiceImpl: CanchaService {
     lateinit var canchaRepository: CanchaRepository
     override fun getByClubName(clubName: String): Array<Cancha> {
         return canchaRepository.findByClubName(clubName)
+    }
+
+    override fun getDetails(idCancha: Long): Optional<Cancha> {
+        return canchaRepository.findById(idCancha)
     }
 
 }

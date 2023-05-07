@@ -49,6 +49,17 @@ class ModelMapper {
         )
     }
 
+    fun toDto(cancha: Cancha): CanchaDTO {
+        return CanchaDTO(
+            cancha.id,
+            cancha.nombre!!,
+            cancha.capacidad,
+            cancha.deporte?.value!!,
+            cancha.precio,
+            cancha.horariosDisponibles
+        )
+    }
+
 
     companion object {
         private var instance: ModelMapper? = null

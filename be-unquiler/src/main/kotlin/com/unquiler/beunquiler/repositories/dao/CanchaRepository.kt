@@ -14,4 +14,5 @@ interface CanchaRepository : JpaRepository<Cancha, Long> {
         nativeQuery = true)
     fun findByClubName(clubName: String): Array<Cancha>
 
+
 }
