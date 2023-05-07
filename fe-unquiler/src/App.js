@@ -9,6 +9,7 @@ import Publish from './views/publish/Publish';
 import PrivateRoute from './components/PrivateRoute';
 import { useAuth } from './context/AuthContext';
 import ClubDetails from './views/ClubDetails/ClubDetails';
+import {Text} from "@chakra-ui/react";
 
 function App() {
   const { user } = useAuth();
@@ -59,7 +60,16 @@ function App() {
             </PublicRoute>
           }
         />
-        <Route path="*" element={<Navigate to="/" />} />
+
+          <Route
+              path="/:id_club/:id_cancha/ver-detalle/"
+              element={
+                  <PublicRoute>
+                      <Text>A realizar detalle de cancha</Text>
+                  </PublicRoute>
+              }
+          />
+          <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
   );

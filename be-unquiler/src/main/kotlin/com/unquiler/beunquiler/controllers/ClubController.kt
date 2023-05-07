@@ -1,6 +1,7 @@
 package com.unquiler.beunquiler.controllers
 
 import com.unquiler.beunquiler.controllers.dtos.CanchaDTO
+import com.unquiler.beunquiler.controllers.dtos.CanchaDTOSinHorarios
 import com.unquiler.beunquiler.controllers.dtos.ClubRequestDto
 import com.unquiler.beunquiler.repositories.entities.Club
 import com.unquiler.beunquiler.repositories.enums.Deportes

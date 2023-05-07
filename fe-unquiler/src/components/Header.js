@@ -1,10 +1,11 @@
-import { Avatar, Button, Flex, Heading } from '@chakra-ui/react';
+import {Avatar, Button, Flex, Heading, IconButton, Input} from '@chakra-ui/react';
 import React from 'react';
 import UnquilerLogo from './UnquilerLogo';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
-const Header = () => {
+
+const Header = ({children}) => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
@@ -14,6 +15,8 @@ const Header = () => {
         <UnquilerLogo onClick={() => navigate('/')} cursor="pointer" />
         <Heading color="brand.500">UNQuiler</Heading>
       </Flex>
+
+      {children}
 
       {user ? (
         <Flex gap={2} alignItems={'center'}>
