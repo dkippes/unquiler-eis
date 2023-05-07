@@ -59,7 +59,7 @@ const ClubDetails = () => {
           >
             {club?.canchas.length === 0 ? (
               <VStack spacing={2}>
-                <Heading>No tienes canchas publicadas!</Heading>
+                <Heading>No hay canchas publicadas actualmente</Heading>
                 <Button
                   colorScheme="brand"
                   onClick={() => navigate('/club/publish')}

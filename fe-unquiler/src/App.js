@@ -10,6 +10,7 @@ import PrivateRoute from './components/PrivateRoute';
 import { useAuth } from './context/AuthContext';
 import ClubDetails from './views/ClubDetails/ClubDetails';
 import {Text} from "@chakra-ui/react";
+import Search from "./views/Search/Search";
 
 function App() {
   const { user } = useAuth();
@@ -64,9 +65,14 @@ function App() {
           <Route
               path="/:id_club/:id_cancha/ver-detalle/"
               element={
-                  <PublicRoute>
                       <Text>A realizar detalle de cancha</Text>
-                  </PublicRoute>
+              }
+          />
+
+          <Route
+              path="/search/:text"
+              element={
+                  <Search/>
               }
           />
           <Route path="*" element={<Navigate to="/" />} />

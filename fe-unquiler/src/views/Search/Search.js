@@ -1,41 +1,37 @@
-import React, {useEffect, useState} from 'react';
-import {Box, Flex, Heading, HStack, Icon, IconButton, Image, Input, Spinner, Text, VStack} from '@chakra-ui/react';
-import Header from '../../components/Header';
-import Layout from '../components/Layout';
-import { useNavigate} from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {useNavigate, useParams} from "react-router-dom";
 import {CanchaService} from "../../api/CanchaService";
+import {Box, Flex, Heading, HStack, Icon, IconButton, Image, Input, Spinner, Text, VStack} from "@chakra-ui/react";
 import Placeholder from "../static/image-placeholder.jpg";
 import {BsPeopleFill} from "react-icons/bs";
+import Layout from "../components/Layout";
+import Header from "../../components/Header";
 import SearchForm from "../../components/SearchForm";
 
+const Search = () => {
 
-const Home = () => {
-
+    const {text} = useParams();
     const [canchas, setCanchas] = useState([]);
 
     const navigate = useNavigate();
 
 
     useEffect(() => {
-        console.log("Estoy desde el home")
         const fetchInitialResults = async () => {
-            try {
-                const res = await CanchaService.getLast10Canchas();
-                if (res.data.length > 0) {
-                    setCanchas(res.data);
-                }
-            } catch (error) {
-                console.log(error);
-            }
+            CanchaService.getByClubName(text)
+                .then(res => {
+                    setCanchas(res.data)
+                })
+                .catch(err => console.log(err));
         };
 
         fetchInitialResults();
-    }, []);
+    }, [text]);
+
 
 
 
     const handleImageClick= (cancha) =>{
-        console.log(cancha)
         navigate(cancha.club_id +'/' + cancha.id + '/ver-detalle' );
     }
 
@@ -44,13 +40,12 @@ const Home = () => {
     if (canchas.length === 0) {
         content = (
             <VStack color="brand.200" p={6} align={'flex-start'}>
-                <Heading size="4xl">Bienvenido a UNQuiler!</Heading>
                 <Text fontSize={'xl'}>
-                    Por el momento no tenemos canchas disponibles, pero pronto lo haremos!
+                    No hay resultados para tu búsqueda. Intenta nuevamente con otro texto.
                 </Text>
             </VStack>
         );
-    } else {
+    }  else {
         content =  (
             <HStack align="center" spacing={8} mt={4} flexWrap="wrap" justify="space-evenly">
                 {canchas?.map((cancha) => (
@@ -101,4 +96,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default Search;
