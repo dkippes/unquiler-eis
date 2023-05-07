@@ -147,7 +147,7 @@ const Publish = () => {
               <FormLabel htmlFor="nombre">Nombre:</FormLabel>
               <Input
                 value={nombre}
-                onChange={e => handleChange(e, e.target.value.length < 1)}
+                onChange={e => handleChange(e, e.target.value.length < 2)}
                 type="text"
                 name="nombre"
                 id="nombre"
@@ -160,7 +160,7 @@ const Publish = () => {
               <FormLabel htmlFor="direccion">Dirección:</FormLabel>
               <Input
                 value={direccion}
-                onChange={e => handleChange(e, e.target.value.length < 1)}
+                onChange={e => handleChange(e, e.target.value.length < 2)}
                 type="text"
                 name="direccion"
                 id="direccion"

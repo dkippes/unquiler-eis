@@ -64,9 +64,7 @@ function App() {
           <Route
               path="/:id_club/:id_cancha/ver-detalle/"
               element={
-                  <PublicRoute>
                       <Text>A realizar detalle de cancha</Text>
-                  </PublicRoute>
               }
           />
           <Route path="*" element={<Navigate to="/" />} />
