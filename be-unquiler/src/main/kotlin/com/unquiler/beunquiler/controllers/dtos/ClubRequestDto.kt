@@ -3,6 +3,8 @@ package com.unquiler.beunquiler.controllers.dtos
 import jakarta.validation.constraints.NotNull
 
 class ClubRequestDto {
+
+
     @NotNull
     private var email: String
     @NotNull
@@ -12,11 +14,13 @@ class ClubRequestDto {
     @NotNull
     private var password: String
 
-    constructor(email: String, nombreClub: String, direccion: String, password: String){
+    private val imagenUrl: String
+    constructor(email: String, nombreClub: String, direccion: String, password: String, imagenUrl : String){
         this.email = email
         this.nombreClub = nombreClub
         this.direccion = direccion
         this.password = password
+        this.imagenUrl = imagenUrl
     }
 
     fun getEmail(): String {
@@ -33,5 +37,9 @@ class ClubRequestDto {
 
     fun getDireccion(): String {
         return direccion
+    }
+
+    fun getImagenUrl(): String {
+        return imagenUrl
     }
 }
