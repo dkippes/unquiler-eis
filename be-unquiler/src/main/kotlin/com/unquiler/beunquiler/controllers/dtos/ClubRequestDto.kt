@@ -13,14 +13,14 @@ class ClubRequestDto {
     private var direccion: String
     @NotNull
     private var password: String
-
-    private val imagenUrl: String
-    constructor(email: String, nombreClub: String, direccion: String, password: String, imagenUrl : String){
+    @NotNull
+    private val urlImagen: String
+    constructor(email: String, nombreClub: String, direccion: String, password: String, urlImagen : String){
         this.email = email
         this.nombreClub = nombreClub
         this.direccion = direccion
         this.password = password
-        this.imagenUrl = imagenUrl
+        this.urlImagen = urlImagen
     }
 
     fun getEmail(): String {
@@ -39,7 +39,7 @@ class ClubRequestDto {
         return direccion
     }
 
-    fun getImagenUrl(): String {
-        return imagenUrl
+    fun getUrlImagen(): String {
+        return urlImagen
     }
 }

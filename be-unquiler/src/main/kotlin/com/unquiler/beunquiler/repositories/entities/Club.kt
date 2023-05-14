@@ -25,6 +25,7 @@ class Club() {
         this.direccion = direccion
         this.password = password
         this.canchas = mutableSetOf()
+        this.urlImagen = urlImagen
     }
 
     fun getId(): Long? {

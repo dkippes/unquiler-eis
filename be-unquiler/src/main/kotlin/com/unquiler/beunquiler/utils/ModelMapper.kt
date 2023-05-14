@@ -14,7 +14,7 @@ class ModelMapper {
     }
 
     fun toEntity(clubRequestDto: ClubRequestDto): Club {
-        return Club(clubRequestDto.getEmail(), clubRequestDto.getNombreClub(), clubRequestDto.getDireccion(), clubRequestDto.getPassword(),clubRequestDto.getImagenUrl())
+        return Club(clubRequestDto.getEmail(), clubRequestDto.getNombreClub(), clubRequestDto.getDireccion(), clubRequestDto.getPassword(),clubRequestDto.getUrlImagen())
     }
 
     fun toEntity(canchaDto: CanchaDTO): Cancha {

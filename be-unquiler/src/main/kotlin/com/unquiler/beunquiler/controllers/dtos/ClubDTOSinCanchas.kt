@@ -5,5 +5,5 @@ data class ClubDTOSinCanchas(
     val email: String,
     val nombreClub: String,
     val direccion: String,
-    val imagenUrl: String
+    val urlImagen: String
 )
