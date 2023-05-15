@@ -42,7 +42,7 @@ const ClubDetails = () => {
       >
         <VStack w="full" spacing={4} alignItems={'flex-start'}>
           <HStack spacing={4} align={'center'}>
-            <Avatar /> <Heading>{club?.nombreClub.toUpperCase()}</Heading>
+            <Avatar src={club.urlImagen}/> <Heading>{club?.nombreClub.toUpperCase()}</Heading>
             <HStack align="center" fontSize="26px">
               <Icon color="brand.500" fontSize="25px" as={ImLocation2} />
               <Text>{club?.direccion}</Text>
