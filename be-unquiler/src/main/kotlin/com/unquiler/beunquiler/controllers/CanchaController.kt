@@ -28,11 +28,17 @@ class CanchaController(private val canchaService: CanchaService, private val mod
         return try {
             val canchas = canchaService.getLastCanchas(10)
             val canchasDto = canchas.map { modelMapper.toDtoSinHorarios(it, it.club!!.getId()) }
+        }
+    }
+    
+    @GetMapping("/{id_club}/{id_cancha}")
+    fun getDetails(@PathVariable id_club: Long,@PathVariable id_cancha: Long): ResponseEntity<Any> {
+        return try {
+            val canchas = canchaService.getDetails(id_cancha)
+            val canchasDto = canchas.map { modelMapper.toDto(it) }
             ResponseEntity<Any>(canchasDto, HttpStatus.OK)
         } catch (err: Exception) {
             ResponseEntity<Any>(err.message, HttpStatus.INTERNAL_SERVER_ERROR)
         }
     }
-
-
 }
