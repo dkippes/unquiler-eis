@@ -14,7 +14,7 @@ class ModelMapper {
     }
 
     fun toEntity(clubRequestDto: ClubRequestDto): Club {
-        return Club(clubRequestDto.getEmail(), clubRequestDto.getNombreClub(), clubRequestDto.getDireccion(), clubRequestDto.getPassword())
+        return Club(clubRequestDto.getEmail(), clubRequestDto.getNombreClub(), clubRequestDto.getDireccion(), clubRequestDto.getPassword(),clubRequestDto.getUrlImagen())
     }
 
     fun toEntity(canchaDto: CanchaDTO): Cancha {
@@ -31,11 +31,13 @@ class ModelMapper {
     }
 
     fun toDto(club: Club): ClubDTO {
-        return ClubDTO(club.getId()!!,club.getEmail()!!, club.getNombreClub()!!,club.getDireccion()!!,club.getCanchas()!!.map { CanchaDTO(it.id!!, it.nombre!!, it.capacidad, it.deporte!!.value, it.precio, it.horariosDisponibles) }.toList() )
+        return ClubDTO(club.getId()!!,club.getEmail()!!, club.getNombreClub()!!,club.getDireccion()!!,club.getCanchas()!!.map { CanchaDTO(it.id!!, it.nombre!!, it.capacidad, it.deporte!!.value, it.precio, it.horariosDisponibles) }.toList(),
+            club.getUrlImagen()!!
+        )
     }
 
     fun toDtoSinCanchas(club: Club): ClubDTOSinCanchas {
-        return ClubDTOSinCanchas(club.getId()!!,club.getEmail()!!, club.getNombreClub()!!,club.getDireccion()!!)
+        return ClubDTOSinCanchas(club.getId()!!,club.getEmail()!!, club.getNombreClub()!!,club.getDireccion()!!, club.getUrlImagen()!!)
     }
 
     fun toDtoSinHorarios(cancha: Cancha, club_id: Long?): CanchaDTOSinHorarios {

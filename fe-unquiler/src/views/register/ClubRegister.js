@@ -16,6 +16,7 @@ function Register() {
     password,
     nombreClub,
     direccion,
+      urlImagen,
     values,
     handleChange,
     reset,
@@ -24,6 +25,7 @@ function Register() {
       email: '',
       nombreClub: '',
       direccion: '',
+      urlImagen:'',
       password: '',
       confirmPassword: '',
     },
@@ -31,6 +33,7 @@ function Register() {
       email: false,
       nombreClub: false,
       direccion: false,
+      urlImagen: false,
       password: false,
       confirmPassword: false,
     }
@@ -42,7 +45,7 @@ function Register() {
     event.preventDefault();
     if (!errors.confirmPassword && !errors.email && !errors.password) {
       authService
-        .clubRegister(email, nombreClub, direccion, password)
+        .clubRegister(email, nombreClub, direccion, password, urlImagen)
         .then(res => {
           login({ ...res, isClub: true });
           toast('Club registrado con éxito', {

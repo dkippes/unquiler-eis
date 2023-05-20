@@ -36,6 +36,7 @@ const Header = ({children}) => {
             <Avatar
               onClick={() => navigate('/club/' + user.id)}
               cursor="pointer"
+              src={user.urlImagen}
             />
           )}
         </Flex>

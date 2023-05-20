@@ -11,12 +11,13 @@ export const authService = {
 
     return response.data;
   },
-  clubRegister: async (email, nombreClub, direccion, password) => {
+  clubRegister: async (email, nombreClub, direccion, password, urlImagen) => {
     const response = await axios.post(BASE_URL + 'club/register', {
       email,
       nombreClub,
       direccion,
       password,
+      urlImagen
     });
 
     return response.data;

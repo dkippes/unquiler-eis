@@ -15,15 +15,17 @@ class Club() {
     private var nombreClub: String? = null
     private var direccion: String? = null
     private var password: String? = null
+    private var urlImagen: String? = null
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "club")
     private var canchas: MutableSet<Cancha>? = null
 
-    constructor(email: String, nombreClub: String, direccion: String, password: String) : this() {
+    constructor(email: String, nombreClub: String, direccion: String, password: String, urlImagen: String) : this() {
         this.email = email
         this.nombreClub = nombreClub
         this.direccion = direccion
         this.password = password
         this.canchas = mutableSetOf()
+        this.urlImagen = urlImagen
     }
 
     fun getId(): Long? {
@@ -57,5 +59,9 @@ class Club() {
     fun registrarCancha(cancha: Cancha) {
         cancha.club = this
         canchas?.add(cancha)
+    }
+
+    fun getUrlImagen() :String?{
+        return this.urlImagen
     }
 }
