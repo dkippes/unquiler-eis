@@ -48,7 +48,7 @@ const CanchaDetails = () => {
       hora: horario.hora,
     })
       .then(() => {
-        toast('Reservado correctamente', { type: 'success' });
+        toast('Reserva realizada exitosamente', { type: 'success' });
         const hs = canchaDetail.horariosDisponibles[
           dateFormatter(new Date())
         ].map(h => (h.hora === horario.hora ? { ...h, disponible: false } : h));
@@ -65,7 +65,7 @@ const CanchaDetails = () => {
       })
       .catch(() =>
         toast(
-          'Error al reservar, recargue la pagina para ver los horarios actualizados',
+          'La cancha ya fue reservada en esa fecha. Recargue la página para ver los horarios disponibles',
           {
             type: 'error',
           }
