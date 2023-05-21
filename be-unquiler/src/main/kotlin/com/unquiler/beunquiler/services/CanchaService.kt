@@ -1,6 +1,7 @@
 package com.unquiler.beunquiler.services
 
 import com.unquiler.beunquiler.repositories.entities.Cancha
+import com.unquiler.beunquiler.repositories.entities.Horario
 import java.util.Optional
 
 interface CanchaService {

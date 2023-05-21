@@ -2,6 +2,7 @@ package com.unquiler.beunquiler.repositories.entities
 
 import jakarta.persistence.*
 
+
 @Entity
 @Table(name = "users")
 class User() {
@@ -12,6 +13,9 @@ class User() {
     @Column(unique = true)
     private var email: String? = null
     private var password: String? = null
+
+    @ManyToMany(cascade = [CascadeType.ALL], mappedBy = "usuario")
+    private var reservas: MutableSet<CanchaAlquilada> = mutableSetOf()
 
     constructor(email: String, password: String) : this() {
         this.email = email
@@ -32,5 +36,9 @@ class User() {
 
     fun setPassword(password: String) {
         this.password = password
+    }
+
+    fun alquilar(cancha: Cancha, fecha: String, horario: Horario){
+        this.reservas.add(CanchaAlquilada(cancha, fecha, horario, this))
     }
 }

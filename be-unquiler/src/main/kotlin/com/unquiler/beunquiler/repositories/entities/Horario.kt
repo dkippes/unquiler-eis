@@ -10,7 +10,7 @@ import java.time.LocalTime
 @Embeddable
 class Horario(
     val hora: LocalTime?,
-    val disponible: Boolean
+    var disponible: Boolean
 ) : java.io.Serializable, JsonSerializable {
     constructor() : this(null, false) {
 
