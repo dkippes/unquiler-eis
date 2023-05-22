@@ -20,10 +20,9 @@ class LoginController(@Autowired var userService: UserService,@Autowired var mod
     @Throws(Exception::class)
     fun login(@Valid @RequestBody userRequest: UserRequestDto): ResponseEntity<Any> {
         val loginUser: User = modelMapper.toEntity(userRequest)
-
         return try {
-            val loggedUser = userService.login(loginUser)
-            ResponseEntity<Any>(loggedUser, HttpStatus.OK)
+            val userDto = modelMapper.toDto(userService.login(loginUser))
+            ResponseEntity<Any>(userDto, HttpStatus.OK)
         } catch (e: EntityNotFoundException) {
             ResponseEntity<Any>(e.message, HttpStatus.NOT_FOUND)
         }
