@@ -10,4 +10,10 @@ export const UserService = {
     );
     return response.data;
   },
+  reservas: async (userId) => {
+    const response = await axios.get(
+        `${baseUrl}/${userId}/reservas`
+    );
+    return response.data;
+  },
 };

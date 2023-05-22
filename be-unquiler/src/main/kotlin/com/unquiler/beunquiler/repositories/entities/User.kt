@@ -34,6 +34,10 @@ class User() {
         return password
     }
 
+    fun getReservas(): MutableSet<CanchaAlquilada> {
+        return reservas
+    }
+
     fun setPassword(password: String) {
         this.password = password
     }

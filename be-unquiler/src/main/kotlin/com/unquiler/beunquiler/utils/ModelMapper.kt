@@ -34,6 +34,10 @@ class ModelMapper {
         return ClubDTO(club.getId()!!,club.getEmail()!!, club.getNombreClub()!!,club.getDireccion()!!,club.getCanchas()!!.map { CanchaDTO(it.id!!, it.nombre!!, it.capacidad, it.deporte!!.value, it.precio, it.horariosDisponibles) }.toList() )
     }
 
+    fun toDto(user: User): UserDTO {
+        return UserDTO(user.getId()!!,user.getEmail()!!, user.getPassword()!!)
+    }
+
     fun toDtoSinCanchas(club: Club): ClubDTOSinCanchas {
         return ClubDTOSinCanchas(club.getId()!!,club.getEmail()!!, club.getNombreClub()!!,club.getDireccion()!!)
     }

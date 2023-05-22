@@ -33,6 +33,14 @@ class UserController(var userService: UserService, var modelMapper: ModelMapper)
     @Throws(RuntimeException::class)
     fun alquilarCancha(@PathVariable id_usuario: Long,@PathVariable id_cancha: Long, @RequestBody body: AlquilerDataDTO) {
         userService.alquilarCancha(id_usuario, id_cancha, body.fecha, Horario(LocalTime.parse(body.hora), true))
+    }
 
+    @GetMapping("/{idUsuario}/reservas")
+    fun reservas(@PathVariable idUsuario: Long): ResponseEntity<Any> {
+        try {
+            return ResponseEntity<Any>(userService.reservas(idUsuario), HttpStatus.OK)
+        } catch (e: RuntimeException) {
+            return ResponseEntity<Any>(e.message, HttpStatus.NOT_FOUND)
+        }
     }
 }
