@@ -1,5 +1,6 @@
 package com.unquiler.beunquiler.controllers
 
+import com.unquiler.beunquiler.repositories.entities.Horario
 import com.unquiler.beunquiler.services.CanchaService
 import com.unquiler.beunquiler.utils.ModelMapper
 import org.springframework.http.HttpStatus

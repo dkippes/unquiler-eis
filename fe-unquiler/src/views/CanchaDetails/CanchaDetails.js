@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { CanchaService } from '../../api/CanchaService';
 import {
   Box,
+  Button,
   Center,
   HStack,
   Heading,
@@ -18,10 +19,15 @@ import Placeholder from '../static/image-placeholder.jpg';
 import { BsPeopleFill } from 'react-icons/bs';
 import { MdSchedule } from 'react-icons/md';
 import { toast } from 'react-toastify';
+import { useAuth } from '../../context/AuthContext';
+import { dateFormatter } from '../../utils';
+import { UserService } from '../../api/UserService';
 
 const CanchaDetails = () => {
   const { id_club, id_cancha } = useParams();
   const [canchaDetail, setCanchaDetail] = useState();
+  const { user } = useAuth();
+  const userIsNotClub = user && !user.isClub;
 
   useEffect(() => {
     CanchaService.getCancha(id_club, id_cancha)
@@ -36,6 +42,37 @@ const CanchaDetails = () => {
       );
   }, [id_cancha, id_club]);
 
+  const handleAlquilar = horario => {
+    UserService.alquilar(user.id, id_cancha, {
+      fecha: dateFormatter(new Date()),
+      hora: horario.hora,
+    })
+      .then(() => {
+        toast('Reserva realizada exitosamente', { type: 'success' });
+        const hs = canchaDetail.horariosDisponibles[
+          dateFormatter(new Date())
+        ].map(h => (h.hora === horario.hora ? { ...h, disponible: false } : h));
+
+        const nuevosHorarios = {
+          ...canchaDetail.horariosDisponibles,
+          [dateFormatter(new Date())]: hs,
+        };
+
+        setCanchaDetail({
+          ...canchaDetail,
+          horariosDisponibles: nuevosHorarios,
+        });
+      })
+      .catch(() =>
+        toast(
+          'La cancha ya fue reservada en esa fecha. Recargue la página para ver los horarios disponibles',
+          {
+            type: 'error',
+          }
+        )
+      );
+  };
+
   const renderContent = () => {
     if (!canchaDetail)
       return (
@@ -44,14 +81,7 @@ const CanchaDetails = () => {
         </Center>
       );
 
-    const todayDateFormat = (() => {
-      const today = new Date();
-      const day = today.getDate();
-      const month = today.getMonth() + 1;
-      const year = today.getFullYear();
-
-      return `${year}-${month < 10 ? '0' + month : month}-${day}`;
-    })();
+    const todayDateFormat = dateFormatter(new Date());
 
     return (
       <HStack
@@ -90,20 +120,30 @@ const CanchaDetails = () => {
           <Heading size="md">Proximos Horarios de hoy disponibles:</Heading>
           <VStack alignItems={'flexStart'}>
             <Heading size="md">Hoy ({todayDateFormat}):</Heading>
-            {canchaDetail.horariosDisponibles[todayDateFormat] ? (
-              canchaDetail.horariosDisponibles[todayDateFormat].map(
+            {canchaDetail.horariosDisponibles[todayDateFormat] && canchaDetail.horariosDisponibles[todayDateFormat]?.some((h) => h?.disponible) ? (
+              canchaDetail.horariosDisponibles[todayDateFormat]?.map(
                 (horario, i) => (
                   <HStack key={horario.hora + i}>
-                    <Icon as={MdSchedule} />
-                    <Text fontSize={'lg'}>
-                      {horario.hora} -{' '}
-                      <Text
-                        color={horario.disponible ? 'green.500' : 'red.500'}
-                        as="span"
-                      >
-                        {horario.disponible ? 'Disponible' : 'Ocupado'}
+                    <HStack>
+                      <Icon as={MdSchedule} />
+                      <Text fontSize={'lg'}>
+                        {horario.hora} -{' '}
+                        <Text
+                          color={horario.disponible ? 'green.500' : 'red.500'}
+                          as="span"
+                        >
+                          {horario.disponible ? 'Disponible' : 'Ocupado'}
+                        </Text>
                       </Text>
-                    </Text>
+                    </HStack>
+                    {userIsNotClub && horario.disponible && (
+                      <Button
+                        colorScheme="green"
+                        onClick={() => handleAlquilar(horario)}
+                      >
+                        Alquilar
+                      </Button>
+                    )}
                   </HStack>
                 )
               )

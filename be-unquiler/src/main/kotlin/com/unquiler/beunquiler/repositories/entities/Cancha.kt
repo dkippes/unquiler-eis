@@ -40,10 +40,12 @@ class Cancha(
     @MapKeyColumn(name = "fecha")
     @Convert(converter = HorariosDisponiblesConverter::class)
     var horariosDisponibles: MutableMap<String, MutableSet<Horario>> = mutableMapOf()
+
 ) {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
 
-    constructor() : this(null, null, 0, null, 0.0, mutableMapOf())
+    constructor() : this(null,  null, 0, null, 0.0, mutableMapOf(), )
 }

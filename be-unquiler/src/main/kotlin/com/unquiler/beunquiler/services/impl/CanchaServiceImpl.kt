@@ -2,7 +2,9 @@ package com.unquiler.beunquiler.services.impl
 
 import com.unquiler.beunquiler.repositories.dao.CanchaRepository
 import com.unquiler.beunquiler.repositories.entities.Cancha
+import com.unquiler.beunquiler.repositories.entities.Horario
 import com.unquiler.beunquiler.services.CanchaService
+import jakarta.persistence.EntityNotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -25,5 +27,4 @@ class CanchaServiceImpl: CanchaService {
     override fun getDetails(idCancha: Long): Optional<Cancha> {
         return canchaRepository.findById(idCancha)
     }
-
 }

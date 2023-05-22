@@ -17,7 +17,6 @@ const Home = () => {
 
 
     useEffect(() => {
-        console.log("Estoy desde el home")
         const fetchInitialResults = async () => {
             try {
                 const res = await CanchaService.getLast10Canchas();
