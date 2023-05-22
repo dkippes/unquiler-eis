@@ -5,5 +5,6 @@ data class ClubDTO(
     val email: String,
     val nombreClub: String,
     val direccion: String,
-    val canchas: List<CanchaDTO>
+    val canchas: List<CanchaDTO>,
+    val urlImagen: String
 )

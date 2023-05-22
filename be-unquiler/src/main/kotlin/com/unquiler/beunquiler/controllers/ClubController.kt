@@ -47,7 +47,7 @@ class ClubController(var clubService: ClubService, var modelMapper: ModelMapper)
         return ResponseEntity<Any>(Deportes.values().map { it.value }, HttpStatus.OK)
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     fun informacionDeClub(@Valid @PathVariable id: Long): ResponseEntity<Any> {
         return try {
             ResponseEntity<Any>(modelMapper.toDto(clubService.getClubInformation(id)), HttpStatus.OK)

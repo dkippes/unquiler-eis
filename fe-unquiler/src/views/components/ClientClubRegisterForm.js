@@ -7,7 +7,7 @@ import {
   Input,
 } from '@chakra-ui/react';
 import React from 'react';
-import { validateEmail } from '../../utils';
+import { validateEmail, validateUrl } from '../../utils';
 import PasswordInput from '../../components/PasswordInput';
 
 const ClientClubRegisterForm = ({
@@ -17,18 +17,20 @@ const ClientClubRegisterForm = ({
   onSubmit,
   submitBtnText = 'Continuar',
 }) => {
-  const { email, nombreClub, direccion, password, confirmPassword } = values;
+  const { email, nombreClub, direccion, password, confirmPassword, urlImagen } = values;
   const disabledSubmitting =
     errors.email ||
     errors.nombreClub ||
     errors.direccion ||
+      errors.urlImagen ||
     errors.password ||
     errors.confirmPassword ||
     !email.length ||
     !password.length ||
     (confirmPassword !== undefined && !confirmPassword.length);
 
-  return (
+
+    return (
     <form onSubmit={onSubmit}>
       <FormControl isRequired>
         <FormLabel htmlFor="email">Email:</FormLabel>
@@ -58,6 +60,20 @@ const ClientClubRegisterForm = ({
             <FormHelperText color="red">Ingresa un nombre valido</FormHelperText>
         )}
       </FormControl>
+        <FormControl isRequired>
+            <FormLabel htmlFor="urlImagen">Url imagen:</FormLabel>
+            <Input
+                name="urlImagen"
+                type="url"
+                id="urlImagen"
+                value={urlImagen}
+                onChange={e => onChange(e, !validateUrl(e.target.value))}
+                width="100%"
+            />
+            {errors.urlImagen && urlImagen.length > 0 && (
+                <FormHelperText color="red">La URL provista es inválida</FormHelperText>
+            )}
+        </FormControl>
       <FormControl isRequired>
         <FormLabel htmlFor="direccion">Direccion:</FormLabel>
         <Input

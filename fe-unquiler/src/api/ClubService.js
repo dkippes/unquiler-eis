@@ -21,6 +21,6 @@ export const ClubService = {
     });
   },
   clubInformation: async id => {
-    return axios.get(BASE_URL + 'club/' + id);
+    return axios.get(BASE_URL + 'club/' + id);;
   },
 };

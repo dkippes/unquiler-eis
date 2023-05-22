@@ -18,57 +18,59 @@ const Header = ({children}) => {
 
             {children}
 
-            {user ? (
-                <Flex gap={2} alignItems={'center'}>
-                    {user.isClub && (
-                        <Button
-                            colorScheme="brand"
-                            onClick={() => navigate('/club/publish')}
-                            variant="outline"
-                        >
-                            Publicar Cancha
-                        </Button>
-                    )}
-                    <Button colorScheme="brand" onClick={logout} variant="outline">
-                        Cerrar Sesion
-                    </Button>
-                    <Avatar
-                        onClick={() => {
-                            if (user?.isClub) {
-                                navigate('/club/profile');
-                            } else {
-                                navigate('/user/profile');
-                            }
+      {user ? (
+        <Flex gap={2} alignItems={'center'}>
+          {user.isClub && (
+            <Button
+              colorScheme="brand"
+              onClick={() => navigate('/club/publish')}
+              variant="outline"
+            >
+              Publicar Cancha
+            </Button>
+          )}
+          <Button colorScheme="brand" onClick={logout} variant="outline">
+            Cerrar Sesion
+          </Button>
+            {user.isClub && (
+                <Avatar
+                    onClick={() => {
+                        if (user?.isClub) {
+                            navigate('/club/profile');
+                        } else {
+                            navigate('/user/profile');
                         }
-                        }
-                        cursor="pointer"
-                    />
-                </Flex>
-            ) : (
-                <Flex gap="6">
-                    <Button
-                        colorScheme="brand"
-                        onClick={() => navigate('/login')}
-                        variant="link"
-                    >
-                        Ingresar
-                    </Button>
-                    <Button
-                        colorScheme="brand"
-                        onClick={() => navigate('/user/register')}
-                    >
-                        Registrar Cliente
-                    </Button>
-                    <Button
-                        colorScheme="brand"
-                        onClick={() => navigate('/club/register')}
-                    >
-                        Registrar Club
-                    </Button>
-                </Flex>
+                    }
+                    }
+                    cursor="pointer"
+                />
             )}
         </Flex>
-    );
+      ) : (
+        <Flex gap="6">
+          <Button
+            colorScheme="brand"
+            onClick={() => navigate('/login')}
+            variant="link"
+          >
+            Ingresar
+          </Button>
+          <Button
+            colorScheme="brand"
+            onClick={() => navigate('/user/register')}
+          >
+            Registrar Cliente
+          </Button>
+          <Button
+            colorScheme="brand"
+            onClick={() => navigate('/club/register')}
+          >
+            Registrar Club
+          </Button>
+        </Flex>
+      )}
+    </Flex>
+  );
 };
 
 export default Header;

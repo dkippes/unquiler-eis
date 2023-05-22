@@ -22,12 +22,15 @@ import Placeholder from '../static/image-placeholder.jpg';
 const ClubDetails = () => {
   const { id } = useParams();
   const [club, setClub] = React.useState();
+
   const navigate = useNavigate();
 
   useEffect(() => {
     ClubService.clubInformation(id)
-      .then(res => setClub(res.data))
-      .catch();
+      .then(res => {
+        return setClub(res.data);
+      })
+      .catch(error => console.log(error));
   }, [id]);
 
   return (
@@ -42,7 +45,8 @@ const ClubDetails = () => {
       >
         <VStack w="full" spacing={4} alignItems={'flex-start'}>
           <HStack spacing={4} align={'center'}>
-            <Avatar /> <Heading>{club?.nombreClub.toUpperCase()}</Heading>
+            <Avatar src={club?.urlImagen}/>
+            <Heading>{club?.nombreClub.toUpperCase()}</Heading>
             <HStack align="center" fontSize="26px">
               <Icon color="brand.500" fontSize="25px" as={ImLocation2} />
               <Text>{club?.direccion}</Text>
