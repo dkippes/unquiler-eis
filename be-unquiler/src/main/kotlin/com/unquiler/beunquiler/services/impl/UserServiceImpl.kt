@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional
 class UserServiceImpl : UserService {
     @Autowired
     lateinit var userRepository: UserRepository
+
     @Autowired
     lateinit var canchaRepository: CanchaRepository
 
@@ -29,7 +30,7 @@ class UserServiceImpl : UserService {
     override fun login(user: User): User {
         val loggedUser = userRepository.findByEmailAndPassword(user.getEmail()!!, user.getPassword()!!)
 
-        if(loggedUser.isEmpty) throw EntityNotFoundException()
+        if (loggedUser.isEmpty) throw EntityNotFoundException()
 
         return loggedUser.get()
     }
@@ -41,5 +42,25 @@ class UserServiceImpl : UserService {
         user.alquilar(cancha, fecha, horario)
 
         userRepository.save(user)
+    }
+
+    override fun reservas(idUsuario: Long): List<ReservaDTO> {
+        val reservas = userRepository.findById(idUsuario).get().getReservas()
+        val reservasDTO = arrayListOf<ReservaDTO>()
+        if (reservas != null) {
+            for (reserva in reservas) {
+                val nombreClub = reserva?.cancha?.club?.getNombreClub()
+                val nombreCancha = reserva?.cancha?.nombre
+                val fecha = reserva?.fecha
+                val horario = reserva?.horario.toString()
+                val deporte = reserva?.cancha?.deporte.toString()
+                val precio = reserva?.cancha?.precio
+                val pagado = false
+                val reservaDTO =
+                    ReservaDTO(nombreClub!!, nombreCancha!!, fecha!!, horario!!, deporte!!, precio!!, pagado)
+                reservasDTO.add(reservaDTO)
+            }
+        }
+        return reservasDTO
     }
 }

@@ -19,5 +19,4 @@ interface CanchaRepository : JpaRepository<Cancha, Long> {
                 " order by id DESC LIMIT 0, ?1 ",
         nativeQuery = true)
     fun getLastCanchas(qty: Long): Array<Cancha>
-
 }

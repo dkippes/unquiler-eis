@@ -28,6 +28,7 @@ class CorsConfiguration {
         return CommandLineRunner { args ->
             val cai = clubRepo.save(Club("boca@gmail.com", "Boca", "Mordor al 2000", "CONTRA"))
             val boca = clubRepo.save(Club("independiente@gmail.com", "Independiente", "Abajo de un puente, 500", "CONTRA2"))
+            val userM = User("m@gmail.com", "mmmmmmm")
 
             val horarios = mutableMapOf<String, MutableSet<Horario>>(
                 Pair(LocalDate.now().toString(), mutableSetOf(
@@ -47,12 +48,10 @@ class CorsConfiguration {
             clubRepo.save(cai)
             clubRepo.save(boca)
 
-            userRepo.save(User("m@gmail.com", "mmmmmmm"))
+            userRepo.save(userM)
             userRepo.save(User("a@gmail.com", "aaaaaaa"))
             userRepo.save(User("b@gmail.com", "bbbbbbb"))
             userRepo.save(User("c@gmail.com", "ccccccc"))
-
-
         }
     }
 
