@@ -14,7 +14,7 @@ class User() {
     private var email: String? = null
     private var password: String? = null
 
-    @ManyToMany(cascade = [CascadeType.ALL], mappedBy = "usuario")
+    @OneToMany(cascade = [CascadeType.ALL], mappedBy = "usuario")
     private var reservas: MutableSet<CanchaAlquilada> = mutableSetOf()
 
     constructor(email: String, password: String) : this() {
