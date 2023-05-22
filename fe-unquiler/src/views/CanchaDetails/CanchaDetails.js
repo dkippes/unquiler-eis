@@ -120,8 +120,8 @@ const CanchaDetails = () => {
           <Heading size="md">Proximos Horarios de hoy disponibles:</Heading>
           <VStack alignItems={'flexStart'}>
             <Heading size="md">Hoy ({todayDateFormat}):</Heading>
-            {canchaDetail.horariosDisponibles[todayDateFormat] ? (
-              canchaDetail.horariosDisponibles[todayDateFormat].map(
+            {canchaDetail.horariosDisponibles[todayDateFormat] && canchaDetail.horariosDisponibles[todayDateFormat]?.some((h) => h?.disponible) ? (
+              canchaDetail.horariosDisponibles[todayDateFormat]?.map(
                 (horario, i) => (
                   <HStack key={horario.hora + i}>
                     <HStack>

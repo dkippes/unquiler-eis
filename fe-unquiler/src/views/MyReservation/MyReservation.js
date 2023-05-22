@@ -73,8 +73,8 @@ const MyReservations = () => {
                                             </Tr>
                                         </Thead>
                                         <Tbody>
-                                            {reservas.map((datos) => (
-                                                <Tr key={datos?.nombreClub + datos?.nombreCancha}>
+                                            {reservas.map((datos, i) => (
+                                                <Tr key={datos?.nombreClub + datos?.nombreCancha + i}>
                                                     <Td>{datos?.nombreClub}</Td>
                                                     <Td>{datos?.nombreCancha}</Td>
                                                     <Td>{datos?.deporte}</Td>
