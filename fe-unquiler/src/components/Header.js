@@ -32,11 +32,11 @@ const Header = ({children}) => {
           <Button colorScheme="brand" onClick={logout} variant="outline">
             Cerrar Sesion
           </Button>
-            {user.isClub && (
+            {user && (
                 <Avatar
                     onClick={() => {
                         if (user?.isClub) {
-                            navigate('/club/profile');
+                            navigate('/club/' + user.id);
                         } else {
                             navigate('/user/profile');
                         }

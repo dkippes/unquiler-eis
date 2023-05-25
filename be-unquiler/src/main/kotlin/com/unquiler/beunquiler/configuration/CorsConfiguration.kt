@@ -26,8 +26,8 @@ class CorsConfiguration {
     @Bean
     fun run(@Autowired userRepo: UserRepository,  clubRepo: ClubRepository) : CommandLineRunner {
         return CommandLineRunner { args ->
-            val cai = clubRepo.save(Club("boca@gmail.com", "Boca", "Mordor al 2000", "CONTRA"))
-            val boca = clubRepo.save(Club("independiente@gmail.com", "Independiente", "Abajo de un puente, 500", "CONTRA2"))
+            val cai = clubRepo.save(Club("boca@gmail.com", "Boca", "Mordor al 2000", "CONTRA", "https://s.jpg"))
+            val boca = clubRepo.save(Club("independiente@gmail.com", "Independiente", "Abajo de un puente, 500", "CONTRA2", "https://s.jpg"))
             val userM = User("m@gmail.com", "mmmmmmm")
 
             val horarios = mutableMapOf<String, MutableSet<Horario>>(
