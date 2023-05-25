@@ -36,6 +36,10 @@ class ModelMapper {
         )
     }
 
+    fun toDto(user: User): UserDTO {
+        return UserDTO(user.getId()!!,user.getEmail()!!, user.getPassword()!!)
+    }
+
     fun toDtoSinCanchas(club: Club): ClubDTOSinCanchas {
         return ClubDTOSinCanchas(club.getId()!!,club.getEmail()!!, club.getNombreClub()!!,club.getDireccion()!!, club.getUrlImagen()!!)
     }
@@ -48,6 +52,17 @@ class ModelMapper {
             deporte = cancha.deporte?.value!!,
             precio = cancha.precio,
             club_id = club_id
+        )
+    }
+
+    fun toDto(cancha: Cancha): CanchaDTO {
+        return CanchaDTO(
+            cancha.id,
+            cancha.nombre!!,
+            cancha.capacidad,
+            cancha.deporte?.value!!,
+            cancha.precio,
+            cancha.horariosDisponibles
         )
     }
 

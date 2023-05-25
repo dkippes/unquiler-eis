@@ -1,22 +1,22 @@
 import {Avatar, Button, Flex, Heading, IconButton, Input} from '@chakra-ui/react';
 import React from 'react';
 import UnquilerLogo from './UnquilerLogo';
-import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import {useAuth} from '../context/AuthContext';
+import {useNavigate} from 'react-router-dom';
 
 
 const Header = ({children}) => {
-  const { user, logout } = useAuth();
-  const navigate = useNavigate();
+    const {user, logout} = useAuth();
+    const navigate = useNavigate();
 
-  return (
-    <Flex bgColor="brand.200" justify="space-between" p="2" align="center">
-      <Flex gap="3" align="center">
-        <UnquilerLogo onClick={() => navigate('/')} cursor="pointer" />
-        <Heading color="brand.500">UNQuiler</Heading>
-      </Flex>
+    return (
+        <Flex bgColor="brand.200" justify="space-between" p="2" align="center">
+            <Flex gap="3" align="center">
+                <UnquilerLogo onClick={() => navigate('/')} cursor="pointer"/>
+                <Heading color="brand.500">UNQuiler</Heading>
+            </Flex>
 
-      {children}
+            {children}
 
       {user ? (
         <Flex gap={2} alignItems={'center'}>
@@ -32,13 +32,19 @@ const Header = ({children}) => {
           <Button colorScheme="brand" onClick={logout} variant="outline">
             Cerrar Sesion
           </Button>
-          {user.isClub && (
-            <Avatar
-              onClick={() => navigate('/club/' + user.id)}
-              cursor="pointer"
-              src={user.urlImagen}
-            />
-          )}
+            {user && (
+                <Avatar
+                    onClick={() => {
+                        if (user?.isClub) {
+                            navigate('/club/' + user.id);
+                        } else {
+                            navigate('/user/profile');
+                        }
+                    }
+                    }
+                    cursor="pointer"
+                />
+            )}
         </Flex>
       ) : (
         <Flex gap="6">
