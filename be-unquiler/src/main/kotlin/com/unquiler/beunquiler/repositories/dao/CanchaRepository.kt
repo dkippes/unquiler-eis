@@ -19,4 +19,9 @@ interface CanchaRepository : JpaRepository<Cancha, Long> {
                 " order by id DESC LIMIT 0, ?1 ",
         nativeQuery = true)
     fun getLastCanchas(qty: Long): Array<Cancha>
+
+    @Query(
+        value = "UPDATE canchas ca SET ca.disponible = true WHERE ca.id = ?1",
+        nativeQuery = true)
+    fun setDisponible(idCancha: Long): Void
 }

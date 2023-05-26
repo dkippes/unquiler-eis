@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.unquiler.beunquiler.repositories.enums.Deportes
 import jakarta.persistence.*
+import java.time.LocalTime
 
 @Converter
 class HorariosDisponiblesConverter : AttributeConverter<Map<String, MutableSet<Horario>>, String> {
@@ -48,4 +49,10 @@ class Cancha(
     var id: Long? = null
 
     constructor() : this(null,  null, 0, null, 0.0, mutableMapOf(), )
+
+    fun cambiarDisponibilidadHorario(fecha: String, hora: LocalTime) {
+        val horariosDisponiblesFecha = horariosDisponibles[fecha]
+        val horarioReserva = horariosDisponiblesFecha?.find { it.hora == hora }
+        horarioReserva?.disponible = true
+    }
 }

@@ -42,6 +42,10 @@ class User() {
         this.password = password
     }
 
+    fun setReservas(reservas: MutableSet<CanchaAlquilada>) {
+        this.reservas = reservas
+    }
+
     fun alquilar(cancha: Cancha, fecha: String, horario: Horario){
         this.reservas.add(CanchaAlquilada(cancha, fecha, horario, this))
     }

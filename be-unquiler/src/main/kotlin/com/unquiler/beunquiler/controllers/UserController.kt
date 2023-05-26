@@ -43,4 +43,13 @@ class UserController(var userService: UserService, var modelMapper: ModelMapper)
             return ResponseEntity<Any>(e.message, HttpStatus.NOT_FOUND)
         }
     }
+
+    @GetMapping("/{idUsuario}/{idReserva}/cancelar")
+    fun cancelarReserva(@PathVariable idUsuario: String, @PathVariable idReserva: String): ResponseEntity<Any> {
+        try {
+            return ResponseEntity<Any>(userService.cancelarReservas(idUsuario.toLong(), idReserva.toLong()), HttpStatus.OK)
+        } catch (e: RuntimeException) {
+            return ResponseEntity<Any>(e.message, HttpStatus.NOT_FOUND)
+        }
+    }
 }

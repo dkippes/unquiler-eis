@@ -23,6 +23,7 @@ import {dateFormatter} from "../../utils";
 import {toast} from "react-toastify";
 import {useAuth} from "../../context/AuthContext";
 import {CanchaService} from "../../api/CanchaService";
+import { CloseIcon } from '@chakra-ui/icons';
 
 const MyReservations = () => {
     const {id} = useParams();
@@ -39,6 +40,17 @@ const MyReservations = () => {
                 console.log(e)
             );
     }, [user?.id]);
+
+    const handleCancelarReserva = (datos) => {
+        console.log(datos);
+        UserService.cancelarReservas(datos?.userId, datos?.id)
+          .then((res) => {
+              setReservas(res);
+          })
+          .catch((e) =>
+            console.log(e)
+          );
+    };
 
     return (
         <Layout>
@@ -63,25 +75,38 @@ const MyReservations = () => {
                                     <Table size='lg'>
                                         <Thead>
                                             <Tr>
-                                                <Th>Nombre Club</Th>
-                                                <Th>Nombre Cancha</Th>
-                                                <Th>Deporte</Th>
-                                                <Th>Fecha</Th>
-                                                <Th>Horario</Th>
-                                                <Th>Precio</Th>
-                                                <Th>Pagado</Th>
+                                                <Th textAlign={'center'}>Nombre Club</Th>
+                                                <Th textAlign={'center'}>Nombre Cancha</Th>
+                                                <Th textAlign={'center'}>Deporte</Th>
+                                                <Th textAlign={'center'}>Fecha</Th>
+                                                <Th textAlign={'center'}>Horario</Th>
+                                                <Th textAlign={'center'}>Precio</Th>
+                                                <Th textAlign={'center'}>Pagado</Th>
+                                                <Th textAlign={'center'}>Cancelar</Th>
                                             </Tr>
                                         </Thead>
                                         <Tbody>
-                                            {reservas.map((datos, i) => (
-                                                <Tr key={datos?.nombreClub + datos?.nombreCancha + i}>
-                                                    <Td>{datos?.nombreClub}</Td>
-                                                    <Td>{datos?.nombreCancha}</Td>
-                                                    <Td>{datos?.deporte}</Td>
-                                                    <Td>{datos?.fecha}</Td>
-                                                    <Td>{datos?.horario}</Td>
-                                                    <Td>{datos?.precio}</Td>
-                                                    <Td>{datos?.pagado ? 'Sí' : 'No'}</Td>
+                                            {reservas.map((datos) => (
+                                                <Tr key={datos?.id}>
+                                                    <Td textAlign={'center'}>{datos?.nombreClub}</Td>
+                                                    <Td textAlign={'center'}>{datos?.nombreCancha}</Td>
+                                                    <Td textAlign={'center'}>{datos?.deporte}</Td>
+                                                    <Td textAlign={'center'}>{datos?.fecha}</Td>
+                                                    <Td textAlign={'center'}>{datos?.horario}</Td>
+                                                    <Td textAlign={'center'}>{datos?.precio}</Td>
+                                                    <Td textAlign={'center'}>{datos?.pagado ? 'Sí' : 'No'}</Td>
+                                                    <Td textAlign={'center'}>
+                                                        <button
+                                                          onClick={() => handleCancelarReserva(datos)} // Llama a la función handleCancelarReserva pasando los datos de la reserva
+                                                          style={{
+                                                              background: 'none',
+                                                              border: 'none',
+                                                              cursor: 'pointer',
+                                                          }}
+                                                        >
+                                                            <CloseIcon boxSize={3} color="red.500" />
+                                                        </button>
+                                                    </Td>
                                                 </Tr>
                                             ))}
                                         </Tbody>

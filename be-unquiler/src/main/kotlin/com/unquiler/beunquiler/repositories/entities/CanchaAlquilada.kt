@@ -50,5 +50,7 @@ class CanchaAlquilada() {
         this.cancha!!.horariosDisponibles[this.fecha!!] = horarios
     }
 
-    // Resto de propiedades y métodos de la clase CanchaAlquilada
+    fun cancelarReserva() {
+        this.horario?.disponible = true
+    }
 }
