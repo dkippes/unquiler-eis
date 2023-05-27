@@ -1,5 +1,6 @@
 package com.unquiler.beunquiler.services
 
+import com.unquiler.beunquiler.controllers.dtos.ReservaClubDTO
 import com.unquiler.beunquiler.repositories.entities.Cancha
 import com.unquiler.beunquiler.repositories.entities.Club
 
@@ -9,5 +10,5 @@ interface ClubService {
 
     fun publicarCancha(id:Long, cancha: Cancha): Cancha
     fun getClubInformation(id: Long): Club
-
+    fun reservadas(idClub: Long) : List<ReservaClubDTO>
 }

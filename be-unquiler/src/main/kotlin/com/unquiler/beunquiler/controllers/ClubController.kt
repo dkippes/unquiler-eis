@@ -55,4 +55,13 @@ class ClubController(var clubService: ClubService, var modelMapper: ModelMapper)
             ResponseEntity<Any>(err.message, HttpStatus.NOT_FOUND)
         }
     }
+
+    @GetMapping("/{id}/reservadas")
+    fun reservadas(@Valid @PathVariable id: Long): ResponseEntity<Any> {
+        return try {
+            ResponseEntity<Any>(clubService.reservadas(id), HttpStatus.OK)
+        } catch(err: EntityNotFoundException) {
+            ResponseEntity<Any>(err.message, HttpStatus.NOT_FOUND)
+        }
+    }
 }
