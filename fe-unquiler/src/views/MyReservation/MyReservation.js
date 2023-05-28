@@ -45,6 +45,7 @@ const MyReservations = () => {
         console.log(datos);
         UserService.cancelarReservas(datos?.userId, datos?.id)
           .then((res) => {
+              console.log(res);
               setReservas(res);
           })
           .catch((e) =>

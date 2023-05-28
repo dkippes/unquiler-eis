@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.unquiler.beunquiler.repositories.enums.Deportes
 import jakarta.persistence.*
+import org.hibernate.annotations.Cascade
 import java.time.LocalTime
 
 @Converter
@@ -39,6 +40,7 @@ class Cancha(
         joinColumns = [JoinColumn(name = "cancha_id")]
     )
     @MapKeyColumn(name = "fecha")
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @Convert(converter = HorariosDisponiblesConverter::class)
     var horariosDisponibles: MutableMap<String, MutableSet<Horario>> = mutableMapOf()
 
