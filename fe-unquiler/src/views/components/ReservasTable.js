@@ -45,7 +45,7 @@ const ReservasTable = ({ reservas, isFromClub }) => {
                 <Th>Horario</Th>
                 <Th>Precio</Th>
                 <Th>Pagado</Th>
-                <Th>Cancelar</Th>
+                {!isFromClub && <Th>Cancelar</Th>}
               </Tr>
             </Thead>
             <Tbody>
@@ -60,18 +60,20 @@ const ReservasTable = ({ reservas, isFromClub }) => {
                   <Td>{datos?.horario}</Td>
                   <Td>{datos?.precio}</Td>
                   <Td>{datos?.pagado ? 'Sí' : 'No'}</Td>
-                  <Td textAlign={'center'}>
-                    <button
-                      onClick={() => handleCancelarReserva(datos)} // Llama a la función handleCancelarReserva pasando los datos de la reserva
-                      style={{
-                        background: 'none',
-                        border: 'none',
-                        cursor: 'pointer',
-                      }}
-                    >
-                      <CloseIcon boxSize={3} color='red.500' />
-                    </button>
-                  </Td>
+                  {!isFromClub && (
+                    <Td textAlign={'center'}>
+                      <button
+                        onClick={() => handleCancelarReserva(datos)}
+                        style={{
+                          background: 'none',
+                          border: 'none',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        <CloseIcon boxSize={3} color='red.500' />
+                      </button>
+                    </Td>
+                  )}
                 </Tr>
               ))}
             </Tbody>

@@ -51,7 +51,9 @@ class CanchaAlquilada() {
         this.cancha!!.horariosDisponibles[this.fecha!!] = horarios
     }
 
-    fun cancelarReserva() {
-        this.horario?.disponible = true
+    fun cancelarReserva(fecha: String, horario: Horario) {
+        cancha?.horariosDisponibles?.get(fecha)?.let { horariosFecha ->
+            horariosFecha.find { it.hora == horario?.hora }?.disponible = true
+        }
     }
 }

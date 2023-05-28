@@ -78,58 +78,29 @@ class UserServiceImpl : UserService {
     }
 
     override fun cancelarReservas(idUsuario: Long, idReserva: Long): List<ReservaDTO> {
-        /*val reserva = reservasRepository.findById(idReserva).get()
-        reserva.cancelarReserva()
-        val club = reserva.cancha?.club
-        val cancha = reserva.cancha
-        val horario = reserva.horario*/
-        /*horario?.disponible = true
-        cancha?.horariosDisponibles?.get(reserva.fecha)?.map { h ->
-            if (h.hora == horario?.hora) {
-                h.disponible = true
-            }
-        }*/
-        //cancha?.cambiarDisponibilidadHorario(reserva.fecha.toString(), horario?.hora!!)
-        //canchaRepository.save(cancha!!)
-        //val reservaa = reservasRepository.findById(idReserva).orElseThrow { RuntimeException("Reserva no encontrada") }
-
-
-        //reservasRepository.cancelarReserva(idReserva)
-        /*
-        canchaRepository.deleteById(cancha?.id!!)
-        canchaRepository.save(nuevaCancha)
-        canchaRepository.setDisponible(cancha?.id!!)*/
-
         val reserva = reservasRepository.findById(idReserva).orElseThrow { RuntimeException("Reserva no encontrada") }
+        reserva.cancelarReserva(reserva.fecha!!, reserva.horario!!)
+        val hd = reserva?.cancha?.horariosDisponibles
+        val nuevoHorariosDisponibles: MutableMap<String, MutableSet<Horario>> = mutableMapOf()
 
-        // Cancelar la reserva
-        reserva.cancelarReserva()
-
-        val cancha = reserva.cancha
-        val nuevaCancha = Cancha(
-            cancha?.club,
-            cancha?.nombre,
-            cancha?.capacidad!!,
-            cancha.deporte,
-            cancha.precio,
-            cancha.horariosDisponibles
-        )
-        val horario = reserva.horario
-
-        // Actualizar disponibilidad en la cancha
-        horario?.disponible = true
-        cancha?.horariosDisponibles?.get(reserva.fecha)?.let { horariosFecha ->
-            horariosFecha.find { it.hora == horario?.hora }?.disponible = true
+        if (hd != null) {
+            val nuevosHorarios: MutableSet<Horario> = mutableSetOf()
+            for (horario in hd[reserva.fecha]!!) {
+                val nuevoHorario = Horario(horario.hora, horario.disponible) // Crea un nuevo objeto Horario con disponible = true
+                nuevosHorarios.add(nuevoHorario)
+            }
+            nuevoHorariosDisponibles[reserva.fecha!!] = nuevosHorarios
         }
 
-        // Guardar la cancha actualizada
-        canchaRepository.save(cancha!!)
+        val cancha = canchaRepository.findById(reserva.cancha?.id!!)
+        if (cancha.isPresent) {
+            val canchaEntity = cancha.get()
+            canchaEntity.horariosDisponibles.remove(reserva.fecha)
+            canchaEntity.horariosDisponibles.putAll(nuevoHorariosDisponibles)
 
-        // Eliminar la reserva de canchas_alquiladas
+            canchaRepository.save(canchaEntity)
+        }
         reservasRepository.cancelarReserva(reserva.id!!)
-        //canchaRepository.save(cancha)
-
-
         val reservas = userRepository.findById(idUsuario).get().getReservas()
         val reservasDTO = arrayListOf<ReservaDTO>()
         if (reservas != null) {
