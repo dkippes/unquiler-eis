@@ -1,6 +1,8 @@
 package com.unquiler.beunquiler.services.impl
 
 import com.unquiler.beunquiler.controllers.dtos.CanchaDTOSinHorarios
+import com.unquiler.beunquiler.controllers.dtos.ReservaClubDTO
+import com.unquiler.beunquiler.repositories.dao.CanchaAlquiladaRepository
 import com.unquiler.beunquiler.repositories.dao.CanchaRepository
 import com.unquiler.beunquiler.repositories.dao.ClubRepository
 import com.unquiler.beunquiler.repositories.entities.Cancha
@@ -18,6 +20,8 @@ class ClubServiceImpl : ClubService {
     lateinit var clubRepository: ClubRepository
     @Autowired
     lateinit var canchaRepository: CanchaRepository
+    @Autowired
+    lateinit var canchaAlquiladaRepo: CanchaAlquiladaRepository
 
     override fun register(club: Club): Club {
         val isClubTaken = clubRepository.existsClubByEmail(club.getEmail()!!)
@@ -52,5 +56,27 @@ class ClubServiceImpl : ClubService {
         if(club.isEmpty) throw EntityNotFoundException("El club no existe")
 
         return club.get()
+    }
+
+    override fun reservadas(idClub: Long): List<ReservaClubDTO> {
+        if(!clubRepository.existsById(idClub)) throw EntityNotFoundException();
+
+        val reservas = canchaAlquiladaRepo.findAllByCanchaClubId(idClub)
+
+        val reservasDto = mutableListOf<ReservaClubDTO>()
+
+        for (r in reservas) {
+            val nombreCancha = r.cancha?.nombre
+            val fecha = r.fecha
+            val horario = r.horario.toString()
+            val deporte = r.cancha?.deporte.toString()
+            val precio = r.cancha?.precio
+            val pagado = false
+            val reservaDTO =
+                ReservaClubDTO(r.usuario!!.getEmail()!!, nombreCancha!!, fecha!!, horario, deporte, precio!!, pagado)
+            reservasDto.add(reservaDTO)
+        }
+
+        return reservasDto.toList()
     }
 }

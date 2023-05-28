@@ -13,4 +13,6 @@ interface CanchaAlquiladaRepository : JpaRepository<CanchaAlquilada, Long> {
     @Transactional
     @Query(value = "DELETE FROM canchas_alquiladas ca WHERE ca.id = ?1", nativeQuery = true)
     fun cancelarReserva(idReserva: Long)
+
+    fun findAllByCanchaClubId(clubId: Long): List<CanchaAlquilada>
 }

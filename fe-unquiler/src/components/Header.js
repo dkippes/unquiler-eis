@@ -1,50 +1,64 @@
-import {Avatar, Button, Flex, Heading, IconButton, Input} from '@chakra-ui/react';
+import {
+  Avatar,
+  Button,
+  Flex,
+  Heading,
+  IconButton,
+  Input,
+} from '@chakra-ui/react';
 import React from 'react';
 import UnquilerLogo from './UnquilerLogo';
-import {useAuth} from '../context/AuthContext';
-import {useNavigate} from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
+const Header = ({ children }) => {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
-const Header = ({children}) => {
-    const {user, logout} = useAuth();
-    const navigate = useNavigate();
+  return (
+    <Flex bgColor="brand.200" justify="space-between" p="2" align="center">
+      <Flex gap="3" align="center">
+        <UnquilerLogo onClick={() => navigate('/')} cursor="pointer" />
+        <Heading color="brand.500">UNQuiler</Heading>
+      </Flex>
 
-    return (
-        <Flex bgColor="brand.200" justify="space-between" p="2" align="center">
-            <Flex gap="3" align="center">
-                <UnquilerLogo onClick={() => navigate('/')} cursor="pointer"/>
-                <Heading color="brand.500">UNQuiler</Heading>
-            </Flex>
-
-            {children}
+      {children}
 
       {user ? (
         <Flex gap={2} alignItems={'center'}>
           {user.isClub && (
-            <Button
-              colorScheme="brand"
-              onClick={() => navigate('/club/publish')}
-              variant="outline"
-            >
-              Publicar Cancha
-            </Button>
+            <>
+              <Button
+                colorScheme="brand"
+                onClick={() => navigate('/club/publish')}
+                variant="outline"
+              >
+                Publicar Cancha
+              </Button>
+              <Button
+                colorScheme="brand"
+                onClick={() => navigate('/club/' + user.id + '/reservas')}
+                variant="outline"
+              >
+                Mis reservas
+              </Button>
+            </>
           )}
           <Button colorScheme="brand" onClick={logout} variant="outline">
             Cerrar Sesion
           </Button>
-            {user && (
-                <Avatar
-                    onClick={() => {
-                        if (user?.isClub) {
-                            navigate('/club/' + user.id);
-                        } else {
-                            navigate('/user/profile');
-                        }
-                    }
-                    }
-                    cursor="pointer"
-                />
-            )}
+          {user && (
+            <Avatar
+              onClick={() => {
+                if (user?.isClub) {
+                  navigate('/club/' + user.id);
+                } else {
+                  navigate('/user/profile');
+                }
+              }}
+              cursor="pointer"
+            />
+          )}
         </Flex>
       ) : (
         <Flex gap="6">
