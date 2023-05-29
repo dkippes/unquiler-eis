@@ -32,6 +32,7 @@ const CanchaDetails = () => {
   useEffect(() => {
     CanchaService.getCancha(id_club, id_cancha)
       .then(res => {
+        console.log(res);
         setCanchaDetail(res.data);
       })
       .catch(err =>

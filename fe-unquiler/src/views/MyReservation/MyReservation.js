@@ -1,34 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from '../components/Layout';
 import Header from '../../components/Header';
-import {
-  Box,
-  HStack,
-  Heading,
-  VStack,
-  Table,
-  Thead,
-  Tr,
-  Th,
-  Tbody,
-  TableContainer,
-  Td,
-} from '@chakra-ui/react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { UserService } from '../../api/UserService';
+import { VStack } from '@chakra-ui/react';
 import { useAuth } from '../../context/AuthContext';
+import { UserService } from '../../api/UserService';
 import ReservasTable from '../components/ReservasTable';
 
 const MyReservations = () => {
   const { user } = useAuth();
-  const [reservas, setReservas] = React.useState();
+  const [reservas, setReservas] = useState([]);
 
   useEffect(() => {
     UserService.reservas(user?.id)
-      .then(res => {
+      .then((res) => {
         setReservas(res);
       })
-      .catch(e => console.log(e));
+      .catch((error) => {
+        console.log(error);
+      });
   }, [user?.id]);
 
   return (
@@ -36,15 +25,13 @@ const MyReservations = () => {
       <Header />
       <VStack
         bgColor="brand.200"
-        alignItems={'flex-start'}
+        alignItems="flex-start"
         m={6}
         p={4}
         borderRadius={5}
       >
-        <VStack w="full" spacing={4} alignItems={'flex-start'}>
-          <HStack justifyContent="center" w="full" alignSelf="center">
-            <ReservasTable reservas={reservas} />
-          </HStack>
+        <VStack w="full" spacing={4} alignItems="flex-start">
+          <ReservasTable reservas={reservas} />
         </VStack>
       </VStack>
     </Layout>

@@ -9,4 +9,5 @@ interface UserService {
     fun login(user: User): User
     fun alquilarCancha(idUsuario: Long, idCancha: Long, fecha: String, horario: Horario)
     fun reservas(idUsuario: Long): List<ReservaDTO>
+    fun cancelarReservas(idUsuario: Long, idReserva: Long): List<ReservaDTO>
 }
