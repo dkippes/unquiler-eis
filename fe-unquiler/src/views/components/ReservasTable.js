@@ -1,5 +1,5 @@
 import {
-  Box, Flex,
+  Box, Button,
   Heading,
   Table,
   TableContainer,
@@ -12,29 +12,76 @@ import {
 import React, { useEffect, useState } from 'react';
 import { CloseIcon } from '@chakra-ui/icons';
 import { UserService } from '../../api/UserService';
+import {ClubService} from "../../api/ClubService";
+import {useParams} from "react-router-dom";
+import {useAuth} from "../../context/AuthContext";
 
 const ReservasTable = ({ reservas, isFromClub }) => {
-  const [reservasData, setReservasData] = useState([]);
+
+    const { user } = useAuth();
+
+    const [reservasData, setReservasData] = useState([]);
 
   useEffect(() => {
     setReservasData(reservas);
   }, [reservas]);
 
   const handleCancelarReserva = (datos) => {
-    console.log(datos);
     UserService.cancelarReservas(datos?.userId, datos?.id)
       .then((res) => {
         console.log(res);
-        setReservasData(res); // Actualiza las reservas después de cancelar
+        setReservasData(res.data); // Actualiza las reservas después de cancelar
       })
       .catch((e) => console.log(e));
   };
+
+  const handleMarcarComoPago = (datosReserva) => {
+
+      //se obtiene dato del club logueado
+      const clubId = user.id
+
+      ClubService.markAsPaid(clubId,datosReserva.id)
+          .then((res) => {
+              setReservasData(res.data); // Actualiza las reservas después de marcar paga
+          })
+          .catch((e) => console.log(e));
+  }
+
+  function getActionButton(datos){
+    if(isFromClub){
+        //Si está pagado no se puede volver a presionar el botón
+      return !datos.pagado && (
+          <Td textAlign={'center'}>
+            <Button
+                onClick={() => handleMarcarComoPago(datos)}
+                colorScheme='green'
+            >
+              Marcar como paga
+            </Button>
+          </Td>
+      )
+    }
+    return (
+        <Td textAlign={'center'}>
+          <button
+              onClick={() => handleCancelarReserva(datos)}
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+              }}
+          >
+            <CloseIcon boxSize={3} color='red.500' />
+          </button>
+        </Td>
+    )
+  }
 
   return (
     <Box>
       {reservasData && reservasData.length > 0 ? (
         <TableContainer>
-          <Heading textAlign={'center'}>Mis Reservas:</Heading>
+          <Heading textAlign={'center'}>Mis Reservas</Heading>
           <Table size='lg'>
             <Thead>
               <Tr>
@@ -60,20 +107,7 @@ const ReservasTable = ({ reservas, isFromClub }) => {
                   <Td>{datos?.horario}</Td>
                   <Td>{datos?.precio}</Td>
                   <Td>{datos?.pagado ? 'Sí' : 'No'}</Td>
-                  {!isFromClub && (
-                    <Td textAlign={'center'}>
-                      <button
-                        onClick={() => handleCancelarReserva(datos)}
-                        style={{
-                          background: 'none',
-                          border: 'none',
-                          cursor: 'pointer',
-                        }}
-                      >
-                        <CloseIcon boxSize={3} color='red.500' />
-                      </button>
-                    </Td>
-                  )}
+                  {getActionButton(datos)}
                 </Tr>
               ))}
             </Tbody>
