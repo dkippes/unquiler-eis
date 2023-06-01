@@ -47,6 +47,6 @@ class User() {
     }
 
     fun alquilar(cancha: Cancha, fecha: String, horario: Horario){
-        this.reservas.add(CanchaAlquilada(cancha, fecha, horario, this))
+        this.reservas.add(CanchaAlquilada(cancha, fecha, horario, this, false))
     }
 }

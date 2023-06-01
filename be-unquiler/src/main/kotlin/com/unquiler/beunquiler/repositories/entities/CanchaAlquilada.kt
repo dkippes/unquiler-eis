@@ -13,6 +13,8 @@ import jakarta.persistence.Table
 @Table(name = "canchas_alquiladas")
 class CanchaAlquilada() {
 
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
@@ -29,11 +31,14 @@ class CanchaAlquilada() {
 
     var horario: Horario? = null
 
-    constructor(cancha: Cancha, fecha: String, horario: Horario, usuario: User) : this() {
+    var pagado: Boolean? = null
+
+    constructor(cancha: Cancha, fecha: String, horario: Horario, usuario: User, pagado: Boolean) : this() {
         this.cancha = cancha
         this.fecha = fecha
         this.horario = horario
         this.usuario = usuario
+        this.pagado = pagado
 
         alquilada()
     }

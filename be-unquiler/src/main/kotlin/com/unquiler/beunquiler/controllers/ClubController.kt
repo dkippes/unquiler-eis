@@ -64,4 +64,16 @@ class ClubController(var clubService: ClubService, var modelMapper: ModelMapper)
             ResponseEntity<Any>(err.message, HttpStatus.NOT_FOUND)
         }
     }
+
+    //return axios.get(BASE_URL + 'club/marcar-paga'  + idReserva);
+    //return axios.get(BASE_URL + 'club + idClub+ '/marcar-paga'  + idReserva);
+    // /club/2/marcar-paga/1
+    @GetMapping("/{idClub}/marcar-paga/{idReserva}")
+    fun marcarReservaComoPaga(@PathVariable idClub: String,@PathVariable idReserva: String): ResponseEntity<Any> {
+        try {
+            return ResponseEntity<Any>(clubService.marcarReservaPaga(idClub.toLong(),idReserva.toLong()), HttpStatus.OK)
+        } catch (e: RuntimeException) {
+            return ResponseEntity<Any>(e.message, HttpStatus.NOT_FOUND)
+        }
+    }
 }

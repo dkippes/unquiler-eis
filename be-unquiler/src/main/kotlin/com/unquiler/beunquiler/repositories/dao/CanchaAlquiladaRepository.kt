@@ -15,4 +15,9 @@ interface CanchaAlquiladaRepository : JpaRepository<CanchaAlquilada, Long> {
     fun cancelarReserva(idReserva: Long)
 
     fun findAllByCanchaClubId(clubId: Long): List<CanchaAlquilada>
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE canchas_alquiladas SET pagado = true WHERE id = ?1", nativeQuery = true)
+    fun marcarReservaPaga(idReserva: Long)
 }
