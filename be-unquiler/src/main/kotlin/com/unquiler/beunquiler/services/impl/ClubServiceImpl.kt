@@ -72,8 +72,9 @@ class ClubServiceImpl : ClubService {
             val deporte = r.cancha?.deporte.toString()
             val precio = r.cancha?.precio
             val pagado = false
+            val id = r?.id
             val reservaDTO =
-                ReservaClubDTO(r.usuario!!.getEmail()!!, nombreCancha!!, fecha!!, horario, deporte, precio!!, pagado)
+                ReservaClubDTO(r.id!!,r.usuario!!.getEmail()!!, nombreCancha!!, fecha!!, horario, deporte, precio!!, pagado)
             reservasDto.add(reservaDTO)
         }
 
