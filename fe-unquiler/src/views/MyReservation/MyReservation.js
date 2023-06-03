@@ -7,18 +7,7 @@ import { UserService } from '../../api/UserService';
 import ReservasTable from '../components/ReservasTable';
 
 const MyReservations = () => {
-  const { user } = useAuth();
-  const [reservas, setReservas] = useState([]);
 
-  useEffect(() => {
-    UserService.reservas(user?.id)
-      .then((res) => {
-        setReservas(res);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [user?.id]);
 
   return (
     <Layout>
@@ -31,7 +20,7 @@ const MyReservations = () => {
         borderRadius={5}
       >
         <VStack w="full" spacing={4} alignItems="flex-start">
-          <ReservasTable reservas={reservas} />
+            <ReservasTable  />
         </VStack>
       </VStack>
     </Layout>
