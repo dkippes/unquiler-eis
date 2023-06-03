@@ -49,7 +49,6 @@ const ReservasTable = ({  isFromClub }) => {
             }else{
                 UserService.reservas(user?.id)
                     .then((res) => {
-                        console.log("UserService Reservas", res)
                         setReservasData(res);
                     })
                     .catch((error) => {
