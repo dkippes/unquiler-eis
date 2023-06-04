@@ -1,5 +1,6 @@
 import {
   Box, Button,
+  Flex,
   Heading,
   Table,
   TableContainer,
@@ -8,6 +9,7 @@ import {
   Th,
   Thead,
   Tr,
+  color,
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { CloseIcon } from '@chakra-ui/icons';
@@ -111,7 +113,7 @@ const ReservasTable = ({  isFromClub }) => {
           >
             <CloseIcon boxSize={3} color='red.500' />
           </button>
-            <Modal isOpen={showModal} onClose={()=>{setShowModal(false)}}>
+            <Modal isOpen={showModal} onClose={()=>{setShowModal(false)}} isCentered>
                 <ModalOverlay />
                 <ModalContent>
                     <ModalHeader>Importante</ModalHeader>
@@ -121,7 +123,7 @@ const ReservasTable = ({  isFromClub }) => {
                     </ModalBody>
 
                     <ModalFooter>
-                        <Button colorScheme='blue' mr={3} onClick={() => handleCancelarReserva(datos)}>
+                        <Button bgColor='#e74646' color='white' _hover={{ _after: {'bgColor': '#e74646', 'color' : 'white' }}} mr={3} onClick={() => handleCancelarReserva(datos)}>
                             Si
                         </Button>
                         <Button variant='ghost' onClick={()=>{setShowModal(false)}}>
@@ -135,7 +137,7 @@ const ReservasTable = ({  isFromClub }) => {
   }
 
   return (
-    <Box>
+    <Flex justifyContent='center' alignItems='center'>
       {reservasData && reservasData.length > 0 ? (
         <TableContainer>
           <Heading textAlign={'center'}>Mis Reservas</Heading>
@@ -173,7 +175,7 @@ const ReservasTable = ({  isFromClub }) => {
       ) : (
         <Heading textAlign={'center'}>No hay reservas por el momento.</Heading>
       )}
-    </Box>
+    </Flex>
   );
 };
 

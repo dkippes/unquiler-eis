@@ -19,7 +19,7 @@ const MyReservations = () => {
         p={4}
         borderRadius={5}
       >
-        <VStack w="full" spacing={4} alignItems="flex-start">
+        <VStack w="full" spacing={4} alignItems="center">
             <ReservasTable  />
         </VStack>
       </VStack>
