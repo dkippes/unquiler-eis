@@ -23,6 +23,10 @@ class ClubServiceImpl : ClubService {
     @Autowired
     lateinit var canchaAlquiladaRepo: CanchaAlquiladaRepository
 
+    @Autowired
+    lateinit var reservasRepository: CanchaAlquiladaRepository
+
+
     override fun register(club: Club): Club {
         val isClubTaken = clubRepository.existsClubByEmail(club.getEmail()!!)
         if (isClubTaken) {
@@ -71,12 +75,18 @@ class ClubServiceImpl : ClubService {
             val horario = r.horario.toString()
             val deporte = r.cancha?.deporte.toString()
             val precio = r.cancha?.precio
-            val pagado = false
+            val pagado = r.pagado
+            val id = r?.id
             val reservaDTO =
-                ReservaClubDTO(r.usuario!!.getEmail()!!, nombreCancha!!, fecha!!, horario, deporte, precio!!, pagado)
+                ReservaClubDTO(r.id!!,r.usuario!!.getEmail()!!, nombreCancha!!, fecha!!, horario, deporte, precio!!, pagado!!)
             reservasDto.add(reservaDTO)
         }
 
         return reservasDto.toList()
+    }
+
+    override fun marcarReservaPaga(idClub: Long,idReserva: Long): List<ReservaClubDTO> {
+        reservasRepository.marcarReservaPaga(idReserva)
+        return this.reservadas(idClub)
     }
 }

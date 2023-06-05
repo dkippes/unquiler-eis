@@ -11,4 +11,5 @@ interface ClubService {
     fun publicarCancha(id:Long, cancha: Cancha): Cancha
     fun getClubInformation(id: Long): Club
     fun reservadas(idClub: Long) : List<ReservaClubDTO>
+    fun marcarReservaPaga(idClub: Long,idReserva: Long): List<ReservaClubDTO>
 }

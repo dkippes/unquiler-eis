@@ -17,7 +17,6 @@ export const UserService = {
     return response.data;
   },
   cancelarReservas: async (userId, reservaId) => {
-    console.log(`${baseUrl}/${userId}/${reservaId}/cancelar`);
     const response = await axios.get(
       `${baseUrl}/${userId}/${reservaId}/cancelar`
     );

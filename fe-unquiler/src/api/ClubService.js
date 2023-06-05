@@ -26,4 +26,8 @@ export const ClubService = {
   reservadas: async id => {
     return axios.get(BASE_URL + 'club/' + id + '/reservadas');
   },
+  markAsPaid: async (idClub, idReserva) => {
+    return axios.get(BASE_URL + 'club/' + idClub+ '/marcar-paga/'  + idReserva);
+  }
+
 };
