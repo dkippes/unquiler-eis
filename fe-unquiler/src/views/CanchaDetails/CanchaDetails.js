@@ -45,16 +45,11 @@ const CanchaDetails = () => {
 
   const handleAlquilar = horario => {
     UserService.alquilar(user.id, id_cancha, {
-    //  fecha: dateFormatter(new Date()),
-      fecha:selectedDate,
+      fecha: selectedDate,
       hora: horario.hora,
     })
       .then(() => {
         toast('Reserva realizada exitosamente', { type: 'success' });
-
-        //Acá se mandan arman los nevos hs para mandar, seteando en false los no disponibles
-        //TODO: rearmar de acuerdo al cambio, la clave del array tiene que ser la fecha que
-        //eligio el usuario
 
         const hs = canchaDetail.horariosDisponibles[
           selectedDate
@@ -93,7 +88,6 @@ const CanchaDetails = () => {
       return Object.keys(canchaDetail?.horariosDisponibles).some((date)=>{
             return canchaDetail?.horariosDisponibles[date].some((h)=> h.disponible)
           }
-
       )
     }
 
