@@ -112,9 +112,9 @@ class UserServiceImpl : UserService {
                 val horario = reserva?.horario.toString()
                 val deporte = reserva?.cancha?.deporte.toString()
                 val precio = reserva?.cancha?.precio
-                val pagado = false
+                val pagado = reserva?.pagado
                 val reservaDTO =
-                    ReservaDTO(reserva.id!!, userId, nombreClub!!, nombreCancha!!, fecha!!, horario!!, deporte!!, precio!!, pagado)
+                    ReservaDTO(reserva.id!!, userId, nombreClub!!, nombreCancha!!, fecha!!, horario!!, deporte!!, precio!!, pagado!!)
                 reservasDTO.add(reservaDTO)
             }
         }
