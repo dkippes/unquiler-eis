@@ -3,6 +3,7 @@ import {
   Box,
   Button,
   FormControl,
+  FormHelperText,
   FormLabel,
   Heading,
   HStack,
@@ -23,10 +24,16 @@ import useForm from '../../hooks/useForm';
 import { toast } from 'react-toastify';
 
 const Home = () => {
-  const { fechaFin, fechaInicio, handleChange, reset } = useForm({
-    fechaInicio: '',
-    fechaFin: '',
-  });
+  const { fechaFin, fechaInicio, handleChange, reset, errors } = useForm(
+    {
+      fechaInicio: '',
+      fechaFin: '',
+    },
+    {
+      fechaInicio: false,
+      fechaFin: false,
+    }
+  );
   const [canchas, setCanchas] = useState([]);
 
   const navigate = useNavigate();
@@ -118,48 +125,63 @@ const Home = () => {
       <Header>
         <SearchForm />
       </Header>
-      <HStack bgColor="brand.200" p={2} gap={2}>
-        <FormControl maxW={'xs'}>
-          <FormLabel
-            display={'flex'}
-            alignItems={'center'}
-            gap={2}
-            htmlFor="fechaInicio"
-          >
-            Desde:{' '}
-            <Input
-              bgColor="brand.100"
-              onChange={e => handleChange(e)}
-              value={fechaInicio}
-              id="fechaInicio"
-              type="date"
-              name="fechaInicio"
-            />
-          </FormLabel>
-        </FormControl>
-        <FormControl maxW={'xs'}>
-          <FormLabel
-            display={'flex'}
-            alignItems={'center'}
-            gap={2}
-            htmlFor="fechaFin"
-          >
-            Hasta:
-            <Input
-              bgColor="brand.100"
-              onChange={e => handleChange(e)}
-              value={fechaFin}
-              id="fechaFin"
-              type="date"
-              name="fechaFin"
-            />
-          </FormLabel>
-        </FormControl>
+      <VStack bgColor="brand.200" alignItems={'flex-start'} p={2} w="full">
+        <HStack w="full" gap={2}>
+          <FormControl maxW={'xs'}>
+            <FormLabel
+              display={'flex'}
+              alignItems={'center'}
+              gap={2}
+              htmlFor="fechaInicio"
+            >
+              Desde:{' '}
+              <Input
+                bgColor="brand.100"
+                onChange={e =>
+                  handleChange(e, new Date(e.target.value) > new Date(fechaFin))
+                }
+                value={fechaInicio}
+                id="fechaInicio"
+                type="date"
+                name="fechaInicio"
+              />
+            </FormLabel>
+          </FormControl>
+          <FormControl maxW={'xs'}>
+            <FormLabel
+              display={'flex'}
+              alignItems={'center'}
+              gap={2}
+              htmlFor="fechaFin"
+            >
+              Hasta:
+              <Input
+                bgColor="brand.100"
+                onChange={e =>
+                  handleChange(
+                    e,
+                    new Date(e.target.value) < new Date(fechaInicio)
+                  )
+                }
+                value={fechaFin}
+                id="fechaFin"
+                type="date"
+                name="fechaFin"
+              />
+            </FormLabel>
+          </FormControl>
 
-        <Button colorScheme="brand" type="button" onClick={reset}>
-          Eliminar Filtros
-        </Button>
-      </HStack>
+          <Button colorScheme="brand" type="button" onClick={reset}>
+            Eliminar Filtros
+          </Button>
+        </HStack>
+        <Text color="brand.500">
+          {errors.fechaInicio &&
+            'La fecha de inicio debe ser menor a la de fin'}
+          <br />
+          {errors.fechaFin && 'La fecha de fin debe ser mayor a la de inicio'}
+        </Text>
+      </VStack>
       {content}
     </Layout>
   );
