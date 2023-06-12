@@ -5,6 +5,7 @@ const useForm = (initialValues, initialErrors) => {
   const [errors, setErrors] = useState(initialErrors);
 
   const handleChange = (e, hasError) => {
+    console.log(e.target.name, hasError);
     setValues({
       ...values,
       [e.target.name]:

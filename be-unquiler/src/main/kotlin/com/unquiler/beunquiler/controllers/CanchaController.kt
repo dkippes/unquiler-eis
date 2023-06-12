@@ -1,6 +1,5 @@
 package com.unquiler.beunquiler.controllers
 
-import com.unquiler.beunquiler.repositories.entities.Horario
 import com.unquiler.beunquiler.services.CanchaService
 import com.unquiler.beunquiler.utils.ModelMapper
 import org.springframework.http.HttpStatus
@@ -24,10 +23,11 @@ class CanchaController(private val canchaService: CanchaService, private val mod
     }
 
     @GetMapping("/ultimas-canchas")
-    fun getLast10Canchas(): ResponseEntity<Any> {
+    fun getLast10Canchas(@RequestParam(required = false) inicio: String?,
+                         @RequestParam(required = false) fin: String?): ResponseEntity<Any> {
         //retorna las ultimas 10 canchas agregadas
         return try {
-            val canchas = canchaService.getLastCanchas(10)
+            val canchas = canchaService.getLastCanchas(10, inicio, fin)
             val canchasDto = canchas.map { modelMapper.toDtoSinHorarios(it, it.club!!.getId()) }
             ResponseEntity<Any>(canchasDto, HttpStatus.OK)
         } catch (err: Exception) {
