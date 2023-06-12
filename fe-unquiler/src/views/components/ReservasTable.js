@@ -65,7 +65,6 @@ const ReservasTable = ({  isFromClub }) => {
   const handleCancelarReserva = (datos) => {
     UserService.cancelarReservas(datos?.userId, datos?.id)
       .then((res) => {
-
           setReservasData(res); // Actualiza las reservas después de cancelar
           setShowModal(false)
       })
@@ -155,8 +154,8 @@ const ReservasTable = ({  isFromClub }) => {
               </Tr>
             </Thead>
             <Tbody>
-              {reservasData.map((datos) => (
-                <Tr key={datos?.id}>
+              {reservasData.map((datos) => {
+                return (<Tr key={datos?.id}>
                   <Td>
                     {isFromClub ? datos?.emailCliente : datos?.nombreClub}
                   </Td>
@@ -167,8 +166,8 @@ const ReservasTable = ({  isFromClub }) => {
                   <Td>{datos?.precio}</Td>
                   <Td>{datos?.pagado ? 'Sí' : 'No'}</Td>
                   {getActionButton(datos)}
-                </Tr>
-              ))}
+                </Tr>)
+              })}
             </Tbody>
           </Table>
         </TableContainer>
