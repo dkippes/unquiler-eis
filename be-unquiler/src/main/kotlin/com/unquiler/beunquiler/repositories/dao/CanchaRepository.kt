@@ -19,11 +19,12 @@ interface CanchaRepository : JpaRepository<Cancha, Long> {
         nativeQuery = true)
     fun findByClubName(clubName: String): Array<Cancha>
 
-    @Query(
-        value = "SELECT *  FROM canchas " +
-                " order by id DESC LIMIT 0, ?1 ",
-        nativeQuery = true)
-    fun getLastCanchas(qty: Long): Array<Cancha>
+    @Query("SELECT * FROM canchas c WHERE (?2 IS NULL OR NOT EXISTS (SELECT hd.fecha FROM horarios_disponibles hd WHERE hd.cancha_id = c.id AND STR_TO_DATE(hd.fecha, '%Y-%m-%d') < STR_TO_DATE(?2, '%Y-%m-%d'))) " +
+            "AND (?3 IS NULL OR NOT EXISTS (SELECT hd.fecha FROM horarios_disponibles hd WHERE hd.cancha_id = c.id AND STR_TO_DATE(hd.fecha, '%Y-%m-%d') > STR_TO_DATE(?3, '%Y-%m-%d'))) " +
+            "ORDER BY c.id DESC LIMIT ?1", nativeQuery = true)
+    fun getLastCanchas(@Param("qty") qty: Long,
+                       @Param("from") from: String?,
+                       @Param("to") to: String?): Array<Cancha>
 
     @Modifying
     @Transactional
