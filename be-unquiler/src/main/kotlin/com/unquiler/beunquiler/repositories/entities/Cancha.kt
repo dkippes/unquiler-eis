@@ -30,6 +30,7 @@ class Cancha(
     @ManyToOne(cascade = [CascadeType.ALL])
     var club: Club?,
     var nombre: String?,
+    var urlImagen: String?,
     var capacidad: Int,
     var deporte: Deportes?,
     var precio: Double,
@@ -50,7 +51,7 @@ class Cancha(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
 
-    constructor() : this(null,  null, 0, null, 0.0, mutableMapOf(), )
+    constructor() : this(null,  null, null, 0, null, 0.0, mutableMapOf(), )
 
     fun cambiarDisponibilidadHorario(fecha: String, hora: LocalTime) {
         val horariosDisponiblesFecha = horariosDisponibles[fecha]

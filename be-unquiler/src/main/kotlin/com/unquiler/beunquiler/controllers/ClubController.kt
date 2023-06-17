@@ -34,7 +34,6 @@ class ClubController(var clubService: ClubService, var modelMapper: ModelMapper)
     @Throws(Exception::class)
     fun publicarCancha(@Valid @RequestBody canchaDto: CanchaDTO, @Valid @PathVariable id: Long): ResponseEntity<Any> {
         return try {
-            // TODO: Hay que devolver un DTO
             clubService.publicarCancha(id, modelMapper.toEntity(canchaDto))
             ResponseEntity<Any>("OK", HttpStatus.OK)
         } catch (e: EntityNotFoundException) {

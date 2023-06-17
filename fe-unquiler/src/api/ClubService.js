@@ -8,10 +8,12 @@ export const ClubService = {
   },
   publish: async (
     clubId,
-    { nombre, direccion, capacidad, precio, deporte, horariosDisponibles }
+    { nombre, urlImagen, direccion, capacidad, precio, deporte, horariosDisponibles }
   ) => {
+    console.log(urlImagen)
     return axios.post(BASE_URL + 'club/' + clubId + '/publish', {
       nombre,
+      urlImagen,
       direccion,
       capacidad,
       club: null,
