@@ -40,7 +40,7 @@ class CorsConfiguration {
                 )))
 
             val cancha1 = Cancha(cai, "Cancha 2", "https://example.com", 10, Deportes.ATLETISMO, 330.30, horarios)
-            val cancha2= Cancha(boca, "Cancha 3", "", 22, Deportes.FUTBOL, 3300.30, horarios2)
+            val cancha2= Cancha(boca, "Cancha 3", "https://previews.123rf.com/images/sportgraphic/sportgraphic1008/sportgraphic100800083/9880712-futbol-club-barcelona-estadio-donde-tienen-lugar-los-partidos-del-equipo-de-f%C3%BAtbol-de-primera.jpg", 22, Deportes.FUTBOL, 3300.30, horarios2)
 
             cai.registrarCancha(cancha1)
             boca.registrarCancha(cancha2)
