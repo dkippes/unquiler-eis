@@ -39,8 +39,8 @@ class CorsConfiguration {
                     Horario(LocalTime.of(19, 20), true), Horario(LocalTime.of(18, 30), true)
                 )))
 
-            val cancha1 = Cancha(cai, "Cancha 2", 10, Deportes.ATLETISMO, 330.30, horarios)
-            val cancha2= Cancha(boca, "Cancha 3", 22, Deportes.FUTBOL, 3300.30, horarios2)
+            val cancha1 = Cancha(cai, "Cancha 2", "https://example.com", 10, Deportes.ATLETISMO, 330.30, horarios)
+            val cancha2= Cancha(boca, "Cancha 3", "", 22, Deportes.FUTBOL, 3300.30, horarios2)
 
             cai.registrarCancha(cancha1)
             boca.registrarCancha(cancha2)

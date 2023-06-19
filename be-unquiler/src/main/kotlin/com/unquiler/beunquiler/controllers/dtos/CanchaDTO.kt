@@ -6,6 +6,7 @@ import com.unquiler.beunquiler.repositories.entities.Horario
 data class CanchaDTO(
     val id: Long?,
     val nombre: String,
+    val urlImagen: String,
     val capacidad: Int,
     val deporte: String,
     val precio: Double,
