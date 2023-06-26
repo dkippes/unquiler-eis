@@ -11,7 +11,8 @@ import {
   Image,
   Spinner,
   Text,
-  VStack, Select,
+  VStack,
+  Select,
 } from '@chakra-ui/react';
 import Layout from '../components/Layout';
 import Header from '../../components/Header';
@@ -20,7 +21,6 @@ import { BsPeopleFill } from 'react-icons/bs';
 import { MdSchedule } from 'react-icons/md';
 import { toast } from 'react-toastify';
 import { useAuth } from '../../context/AuthContext';
-import { dateFormatter } from '../../utils';
 import { UserService } from '../../api/UserService';
 
 const CanchaDetails = () => {
@@ -51,9 +51,9 @@ const CanchaDetails = () => {
       .then(() => {
         toast('Reserva realizada exitosamente', { type: 'success' });
 
-        const hs = canchaDetail.horariosDisponibles[
-          selectedDate
-        ].map(h => (h.hora === horario.hora ? { ...h, disponible: false } : h));
+        const hs = canchaDetail.horariosDisponibles[selectedDate].map(h =>
+          h.hora === horario.hora ? { ...h, disponible: false } : h
+        );
 
         const nuevosHorarios = {
           ...canchaDetail.horariosDisponibles,
@@ -83,15 +83,11 @@ const CanchaDetails = () => {
         </Center>
       );
 
-    const someDateHasAvailableHour = () =>{
-
-      return Object.keys(canchaDetail?.horariosDisponibles).some((date)=>{
-            return canchaDetail?.horariosDisponibles[date].some((h)=> h.disponible)
-          }
-      )
-    }
-
-    const todayDateFormat = dateFormatter(new Date())
+    const someDateHasAvailableHour = () => {
+      return Object.keys(canchaDetail?.horariosDisponibles).some(date => {
+        return canchaDetail?.horariosDisponibles[date].some(h => h.disponible);
+      });
+    };
 
     return (
       <HStack
@@ -102,15 +98,27 @@ const CanchaDetails = () => {
         bgColor="brand.200"
       >
         <Box
+          flex={1}
+          maxW="50%"
           position="relative"
           display={'flex'}
-          alignItems={'center'}
-          justifyContent={'center'}
+          alignItems={!canchaDetail?.urlImagen ? 'center' : 'flex-start'}
+          justifyContent={!canchaDetail?.urlImagen ? 'center' : 'flex-start'}
         >
-          <Heading size={['xs', 'lg']} position="absolute">
-            Por el momento esta cancha no tiene imagen
-          </Heading>
-          <Image alt="image_placeholder" src={Placeholder} />
+          {!canchaDetail?.urlImagen && (
+            <Heading size={['xs', 'lg']} position="absolute">
+              Por el momento esta cancha no tiene imagen
+            </Heading>
+          )}
+          <Image
+            alt={
+              canchaDetail?.urlImagen
+                ? 'imagen de la cancha'
+                : 'image_placeholder'
+            }
+            src={canchaDetail?.urlImagen}
+            fallbackSrc={Placeholder}
+          />
         </Box>
         <VStack
           alignItems={'flex-start'}
@@ -127,57 +135,58 @@ const CanchaDetails = () => {
             <Icon as={BsPeopleFill} />
           </HStack>
           <Text fontSize={'lg'}>Deporte: {canchaDetail.deporte}</Text>
-          {
-            canchaDetail?.horariosDisponibles && someDateHasAvailableHour()?(
-                    <Select placeholder='Elige una fecha' onChange={(e)=>setSelectedDate(e.target.value)}>
-                      {Object.keys(canchaDetail?.horariosDisponibles).map((fecha) => {
-                        if(canchaDetail?.horariosDisponibles[fecha].every((h)=> h.disponible === false)){
-                          return null
-                        }
-                        return <option value={fecha}>{fecha}</option>
-                        })
-                      }
-                    </Select>
-            ):(
-                <Text>No hay horarios disponibles para esta cancha</Text>
-            )
-
-          }
-          {
-            selectedDate?(
-                canchaDetail?.horariosDisponibles[selectedDate]?.map(
-                    (horario, i) => {
-                        if(!horario.disponible){
-                          return null;
-                        }
-                        return(<HStack key={horario.hora + i}>
-                          <HStack>
-                            <Icon as={MdSchedule} />
-                            <Text fontSize={'lg'}>
-                              {horario.hora} -{' '}
-                              <Text
-                                  color={horario.disponible ? 'green.500' : 'red.500'}
-                                  as="span"
-                              >
-                                {horario.disponible ? 'Disponible' : 'Ocupado'}
-                              </Text>
-                            </Text>
-                          </HStack>
-                          {userIsNotClub && horario.disponible && (
-                              <Button
-                                  colorScheme="green"
-                                  onClick={() => handleAlquilar(horario)}
-                              >
-                                Alquilar
-                              </Button>
-                          )}
-                        </HStack>)
-                    }
-                )
-            ):null
-
-          }
-
+          {canchaDetail?.horariosDisponibles && someDateHasAvailableHour() ? (
+            <Select
+              placeholder="Elige una fecha"
+              onChange={e => setSelectedDate(e.target.value)}
+            >
+              {Object.keys(canchaDetail?.horariosDisponibles).map((fecha,i) => {
+                if (
+                  canchaDetail?.horariosDisponibles[fecha].every(
+                    h => h.disponible === false
+                  )
+                ) {
+                  return null;
+                }
+                return <option key={i} value={fecha}>{fecha}</option>;
+              })}
+            </Select>
+          ) : (
+            <Text>No hay horarios disponibles para esta cancha</Text>
+          )}
+          {selectedDate
+            ? canchaDetail?.horariosDisponibles[selectedDate]?.map(
+                (horario, i) => {
+                  if (!horario.disponible) {
+                    return null;
+                  }
+                  return (
+                    <HStack key={horario.hora + i}>
+                      <HStack>
+                        <Icon as={MdSchedule} />
+                        <Text fontSize={'lg'}>
+                          {horario.hora} -{' '}
+                          <Text
+                            color={horario.disponible ? 'green.500' : 'red.500'}
+                            as="span"
+                          >
+                            {horario.disponible ? 'Disponible' : 'Ocupado'}
+                          </Text>
+                        </Text>
+                      </HStack>
+                      {userIsNotClub && horario.disponible && (
+                        <Button
+                          colorScheme="green"
+                          onClick={() => handleAlquilar(horario)}
+                        >
+                          Alquilar
+                        </Button>
+                      )}
+                    </HStack>
+                  );
+                }
+              )
+            : null}
         </VStack>
       </HStack>
     );

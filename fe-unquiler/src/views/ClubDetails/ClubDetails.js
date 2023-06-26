@@ -45,7 +45,7 @@ const ClubDetails = () => {
       >
         <VStack w="full" spacing={4} alignItems={'flex-start'}>
           <HStack spacing={4} align={'center'}>
-            <Avatar src={club?.urlImagen}/>
+            <Avatar src={club?.urlImagen} />
             <Heading>{club?.nombreClub.toUpperCase()}</Heading>
             <HStack align="center" fontSize="26px">
               <Icon color="brand.500" fontSize="25px" as={ImLocation2} />
@@ -80,9 +80,10 @@ const ClubDetails = () => {
                       <Image
                         w={300}
                         h={200}
-                        objectFit={'contain'}
+                        objectFit={'fill'}
                         alt="imagen de cancha"
-                        src={Placeholder}
+                        fallbackSrc={Placeholder}
+                        src={cancha?.urlImagen}
                       />
                       <VStack p={2}>
                         <Heading as="h4" size="lg">

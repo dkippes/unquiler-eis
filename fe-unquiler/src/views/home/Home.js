@@ -3,12 +3,10 @@ import {
   Box,
   Button,
   FormControl,
-  FormHelperText,
   FormLabel,
   Heading,
   HStack,
   Icon,
-  Image,
   Input,
   Text,
   VStack,
@@ -22,6 +20,7 @@ import { BsPeopleFill } from 'react-icons/bs';
 import SearchForm from '../../components/SearchForm';
 import useForm from '../../hooks/useForm';
 import { toast } from 'react-toastify';
+import ImageComponent from './ImagenComponent';
 
 const Home = () => {
   const { fechaFin, fechaInicio, handleChange, reset, errors } = useForm(
@@ -56,6 +55,7 @@ const Home = () => {
   useEffect(() => {
     CanchaService.getLast10Canchas(fechaInicio || null, fechaFin || null)
       .then(res => {
+        console.log(res.data);
         setCanchas(res.data);
       })
       .catch(err => toast(err.message, { type: 'error' }));
@@ -87,14 +87,10 @@ const Home = () => {
       >
         {canchas?.map(cancha => (
           <Box border="1px solid black" key={cancha.id} mb={6}>
-            <Image
-              w={300}
-              h={200}
-              objectFit={'contain'}
-              alt="imagen de cancha"
-              src={Placeholder}
+            <ImageComponent
+              url={cancha?.urlImagen}
+              placeholder={Placeholder}
               onClick={() => handleImageClick(cancha)}
-              _hover={{ cursor: 'pointer' }}
             />
             <VStack p={2} color="brand.200">
               <Heading as="h4" size="lg">
