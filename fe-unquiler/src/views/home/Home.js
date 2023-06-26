@@ -3,12 +3,10 @@ import {
   Box,
   Button,
   FormControl,
-  FormHelperText,
   FormLabel,
   Heading,
   HStack,
   Icon,
-  Image,
   Input,
   Text,
   VStack,
@@ -22,8 +20,7 @@ import { BsPeopleFill } from 'react-icons/bs';
 import SearchForm from '../../components/SearchForm';
 import useForm from '../../hooks/useForm';
 import { toast } from 'react-toastify';
-import ImageComponent from "./ImagenComponent";
-
+import ImageComponent from './ImagenComponent';
 
 const Home = () => {
   const { fechaFin, fechaInicio, handleChange, reset, errors } = useForm(
@@ -91,9 +88,9 @@ const Home = () => {
         {canchas?.map(cancha => (
           <Box border="1px solid black" key={cancha.id} mb={6}>
             <ImageComponent
-                url={cancha?.url_imagen}
-                placeholder={Placeholder}
-                onClick={() => handleImageClick(cancha)}
+              url={cancha?.urlImagen}
+              placeholder={Placeholder}
+              onClick={() => handleImageClick(cancha)}
             />
             <VStack p={2} color="brand.200">
               <Heading as="h4" size="lg">

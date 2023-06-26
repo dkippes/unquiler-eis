@@ -1,50 +1,21 @@
-import { useEffect, useState } from 'react';
+import { Image } from '@chakra-ui/react';
 
 function ImageComponent({ url, placeholder, onClick }) {
-  const [imageExists, setImageExists] = useState(null);
-
-  useEffect(() => {
-    const verifyImage = () => {
-      const img = new Image();
-      img.onload = () => {
-        setImageExists(true);
-      };
-      img.onerror = () => {
-        setImageExists(false);
-      };
-      img.src = url;
-    };
-
-    verifyImage();
-  }, [url]);
-
+  console.log(url, placeholder);
   return (
     <div>
-      {imageExists ? (
-        <img
-          src={url}
-          alt="Imagen cargada correctamente"
-          onClick={onClick}
-          style={{
-            cursor: 'pointer',
-            width: '300px',
-            height: '200px',
-            objectFit: 'fill',
-          }}
-        />
-      ) : (
-        <img
-          src={placeholder}
-          alt="Placeholder"
-          onClick={onClick}
-          style={{
-            cursor: 'pointer',
-            width: '300px',
-            height: '200px',
-            objectFit: 'contain',
-          }}
-        />
-      )}
+      <Image
+        alt={url ? 'imagen de la cancha' : 'image_placeholder'}
+        src={url}
+        fallbackSrc={placeholder}
+        onClick={onClick}
+        style={{
+          cursor: 'pointer',
+          width: '300px',
+          height: '200px',
+          objectFit: 'fill',
+        }}
+      />
     </div>
   );
 }

@@ -21,7 +21,6 @@ import { BsPeopleFill } from 'react-icons/bs';
 import { MdSchedule } from 'react-icons/md';
 import { toast } from 'react-toastify';
 import { useAuth } from '../../context/AuthContext';
-import { dateFormatter } from '../../utils';
 import { UserService } from '../../api/UserService';
 
 const CanchaDetails = () => {
@@ -141,7 +140,7 @@ const CanchaDetails = () => {
               placeholder="Elige una fecha"
               onChange={e => setSelectedDate(e.target.value)}
             >
-              {Object.keys(canchaDetail?.horariosDisponibles).map(fecha => {
+              {Object.keys(canchaDetail?.horariosDisponibles).map((fecha,i) => {
                 if (
                   canchaDetail?.horariosDisponibles[fecha].every(
                     h => h.disponible === false
@@ -149,7 +148,7 @@ const CanchaDetails = () => {
                 ) {
                   return null;
                 }
-                return <option value={fecha}>{fecha}</option>;
+                return <option key={i} value={fecha}>{fecha}</option>;
               })}
             </Select>
           ) : (
