@@ -49,6 +49,7 @@ class ModelMapper {
         return CanchaDTOSinHorarios(
             id = cancha.id,
             nombre = cancha.nombre!!,
+            url_imagen = cancha.urlImagen!!,
             capacidad = cancha.capacidad,
             deporte = cancha.deporte?.value!!,
             precio = cancha.precio,
